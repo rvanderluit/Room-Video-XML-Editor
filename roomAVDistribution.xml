@@ -1,0 +1,616 @@
+<ROOT>
+	<rooms>
+		<room number="1" name="Room 1">
+			<configuration subSystemScenarioNum="1" videoSwitcherOutputNum="1" numberOfSRCSperPage="6" sendToSpeakers="0">
+				<receiver hasReceiver="0" receiverHasVolFB="0" receiverInputDelay="" musicThroughReceiver="0"/>
+				<music musicZoneNum="1" musicHasVolFB="0" videoVolThroughDistAudio="0"/>
+				<display displayInputDelay="8" tvHasVolFB="0"/>
+			</configuration>
+			<!-- btnToCmd routes button# press to command# press, ie button 3 pulses command 2. -->
+			<lift liftScenarioNum="3" openWithOnCmdNum="2" closeWithOffCmdNum="1">
+				<liftButton cmdNum="1" Name="Up" pulseTime="150"/>
+				<liftButton cmdNum="2" Name="Down" pulseTime="200"/>
+				<liftButton cmdNum="3" Name="Left" pulseTime="10"/>
+				<liftButton cmdNum="4" Name="Right" pulseTime="15"/>
+				<liftButton cmdNum="5" Name="Stop" pulseTime="1"/>
+			</lift>
+			<!-- use only increments of 1 minute up to 90!!! -->
+			<sleep sleepScenarioNum="1" sleepButtonText="Sleep">
+				<sleepButton Name="15m" length="1"/>
+				<sleepButton Name="30m" length="2"/>
+				<sleepButton Name="60m" length="3"/>
+				<sleepButton Name="90m" length="4"/>
+			</sleep>
+			<!-- these buttons are generic and can be used for surround modes or screen size etc. up to 10 available -->
+			<format formatScenarioNum="1" formatButtonText="Format">
+				<formatButton cmdNum="1" Name="Dolby"/>
+				<formatButton cmdNum="2" Name="2 Ch Stereo"/>
+				<formatButton cmdNum="5" Name="All Ch Stereo"/>
+				<formatButton cmdNum="6" Name="DTS"/>
+			</format>
+			<videoSources>
+				<vidSrc number="1" displayInputNumber="1" receiverInputNumber="2" altSwitcherInputNumber="0"/>
+				<vidSrc number="2" displayInputNumber="1" receiverInputNumber="2" altSwitcherInputNumber="0"/>
+				<vidSrc number="3" displayInputNumber="1" receiverInputNumber="2" altSwitcherInputNumber="0"/>
+				<vidSrc number="4" displayInputNumber="1" receiverInputNumber="2" altSwitcherInputNumber="0"/>
+			</videoSources>
+			<displayCommands useXMLcmds="0" powerOn="PWRON\x0D" PowerOff="PWROFF\x0D" input1="IN1\x0D" input2="IN2\x0D" input3="IN3\x0D"/>
+			<receiverCommands useXMLcmds="0" powerOn="PWRON\x0D" PowerOff="PWROFF\x0D" input1="IN1\x0D" input2="IN2\x0D" input3="IN3\x0D"/>
+			<musicSources>
+				<musicSrc number="1" receiverInputNumber="8"/>
+				<musicSrc number="2" receiverInputNumber="8"/>
+				<musicSrc number="3" receiverInputNumber="8"/>
+				<musicSrc number="5" receiverInputNumber="5"/>
+			</musicSources>
+		</room>
+		<room number="2" name="Room 2">
+			<configuration subSystemScenarioNum="1" videoSwitcherOutputNum="2" numberOfSRCSperPage="6" sendToSpeakers="0">
+				<receiver hasReceiver="1" receiverHasVolFB="1" receiverInputDelay="2" musicThroughReceiver="1"/>
+				<music musicZoneNum="1" musicHasVolFB="0" videoVolThroughDistAudio="0"/>
+				<display displayInputDelay="8" tvHasVolFB="0"/>
+			</configuration>
+			<lift liftScenarioNum="0" openWithOnCmdNum="1" closeWithOffCmdNum="2">
+				<liftButton cmdNum="1" Name="Up" pulseTime="100"/>
+				<liftButton cmdNum="2" Name="Down" pulseTime="100"/>
+				<liftButton cmdNum="3" Name="Left" pulseTime="10"/>
+				<liftButton cmdNum="4" Name="Right" pulseTime="15"/>
+				<liftButton cmdNum="5" Name="Stop" pulseTime="1"/>
+			</lift>
+			<sleep sleepScenarioNum="0" sleepButtonText="Sleep">
+				<sleepButton Name="5m" length="5"/>
+				<sleepButton Name="10m" length="10"/>
+				<sleepButton Name="15m" length="15"/>
+				<sleepButton Name="90m" length="90"/>
+			</sleep>
+			<!-- these buttons are generic and can be used for surround modes or screen size etc. up to 10 available -->
+			<format formatScenarioNum="1" formatButtonText="Format">
+				<formatButton cmdNum="1" Name="Dolby"/>
+				<formatButton cmdNum="2" Name="2 Ch Stereo"/>
+				<formatButton cmdNum="5" Name="All Ch Stereo"/>
+				<formatButton cmdNum="6" Name="DTS"/>
+			</format>
+			<videoSources>
+				<vidSrc number="1" displayInputNumber="1" receiverInputNumber="2" altSwitcherInputNumber="0"/>
+				<vidSrc number="2" displayInputNumber="1" receiverInputNumber="2" altSwitcherInputNumber="0"/>
+				<vidSrc number="3" displayInputNumber="1" receiverInputNumber="2" altSwitcherInputNumber="0"/>
+				<vidSrc number="4" displayInputNumber="1" receiverInputNumber="2" altSwitcherInputNumber="0"/>
+			</videoSources>
+			<displayCommands useXMLcmds="0" powerOn="PWRON\x0D" PowerOff="PWROFF\x0D" input1="IN1\x0D" input2="IN2\x0D" input3="IN3\x0D"/>
+			<receiverCommands useXMLcmds="0" powerOn="PWRON\x0D" PowerOff="PWROFF\x0D" input1="IN1\x0D" input2="IN2\x0D" input3="IN3\x0D"/>
+			<musicSources>
+				<musicSrc number="1" receiverInputNumber="8"/>
+				<musicSrc number="2" receiverInputNumber="8"/>
+				<musicSrc number="3" receiverInputNumber="8"/>
+				<musicSrc number="5" receiverInputNumber="5"/>
+			</musicSources>
+		</room>
+		<room number="3" name="Room 3">
+			<configuration subSystemScenarioNum="1" videoSwitcherOutputNum="3" numberOfSRCSperPage="6" sendToSpeakers="0">
+				<receiver hasReceiver="0" receiverHasVolFB="1" receiverInputDelay="2" musicThroughReceiver="1"/>
+				<music musicZoneNum="1" musicHasVolFB="0" videoVolThroughDistAudio="0"/>
+				<display displayInputDelay="8" tvHasVolFB="0"/>
+			</configuration>
+			<lift liftScenarioNum="0" openWithOnCmdNum="1" closeWithOffCmdNum="2">
+				<liftButton cmdNum="1" Name="Up" pulseTime="1"/>
+				<liftButton cmdNum="2" Name="Down" pulseTime="1"/>
+				<liftButton cmdNum="3" Name="Left" pulseTime="10"/>
+				<liftButton cmdNum="4" Name="Right" pulseTime="15"/>
+			</lift>
+			<sleep sleepScenarioNum="0" sleepButtonText="Sleep">
+				<sleepButton Name="15m" length="15"/>
+				<sleepButton Name="30m" length="30"/>
+				<sleepButton Name="60m" length="60"/>
+				<sleepButton Name="90m" length="90"/>
+			</sleep>
+			<!-- these buttons are generic and can be used for surround modes or screen size etc. up to 10 available -->
+			<format formatScenarioNum="0" formatButtonText="Format">
+				<formatButton cmdNum="1" Name="Dolby"/>
+				<formatButton cmdNum="2" Name="2 Ch Stereo"/>
+				<formatButton cmdNum="5" Name="All Ch Stereo"/>
+				<formatButton cmdNum="6" Name="DTS"/>
+			</format>
+			<videoSources>
+				<vidSrc number="1" displayInputNumber="1" receiverInputNumber="2" altSwitcherInputNumber="0"/>
+				<vidSrc number="2" displayInputNumber="1" receiverInputNumber="2" altSwitcherInputNumber="0"/>
+				<vidSrc number="3" displayInputNumber="1" receiverInputNumber="2" altSwitcherInputNumber="0"/>
+				<vidSrc number="4" displayInputNumber="1" receiverInputNumber="2" altSwitcherInputNumber="0"/>
+			</videoSources>
+			<displayCommands useXMLcmds="0" powerOn="PWRON\x0D" PowerOff="PWROFF\x0D" input1="IN1\x0D" input2="IN2\x0D" input3="IN3\x0D"/>
+			<receiverCommands useXMLcmds="0" powerOn="PWRON\x0D" PowerOff="PWROFF\x0D" input1="IN1\x0D" input2="IN2\x0D" input3="IN3\x0D"/>
+			<musicSources>
+				<musicSrc number="1" receiverInputNumber="5"/>
+				<musicSrc number="4" receiverInputNumber="5"/>
+				<musicSrc number="2" receiverInputNumber="5"/>
+				<musicSrc number="5" receiverInputNumber="5"/>
+			</musicSources>
+		</room>
+		<room number="4" name="Family Room">
+			<configuration subSystemScenarioNum="3" videoSwitcherOutputNum="4" numberOfSRCSperPage="6" sendToSpeakers="0">
+				<receiver hasReceiver="1" receiverHasVolFB="1" receiverInputDelay="5" musicThroughReceiver="0"/>
+				<music musicZoneNum="16" musicHasVolFB="1" videoVolThroughDistAudio="0"/>
+				<display displayInputDelay="8" tvHasVolFB="0"/>
+			</configuration>
+			<lift liftScenarioNum="0" openWithOnCmdNum="1" closeWithOffCmdNum="2">
+				<liftButton cmdNum="1" Name="Up" pulseTime="1"/>
+				<liftButton cmdNum="2" Name="Down" pulseTime="1"/>
+				<liftButton cmdNum="3" Name="Left" pulseTime="10"/>
+				<liftButton cmdNum="4" Name="Right" pulseTime="15"/>
+			</lift>
+			<sleep sleepScenarioNum="1" sleepButtonText="Sleep">
+				<sleepButton Name="15m" length="15"/>
+				<sleepButton Name="30m" length="30"/>
+				<sleepButton Name="60m" length="60"/>
+				<sleepButton Name="90m" length="90"/>
+			</sleep>
+			<!-- these buttons are generic and can be used for surround modes or screen size etc. up to 10 available -->
+			<format formatScenarioNum="1" formatButtonText="Format">
+				<formatButton cmdNum="1" Name="Dolby"/>
+				<formatButton cmdNum="2" Name="2 Ch Stereo"/>
+				<formatButton cmdNum="5" Name="All Ch Stereo"/>
+				<formatButton cmdNum="6" Name="DTS"/>
+			</format>
+			<videoSources>
+				<vidSrc number="1" displayInputNumber="1" receiverInputNumber="2" altSwitcherInputNumber="0"/>
+				<vidSrc number="2" displayInputNumber="1" receiverInputNumber="2" altSwitcherInputNumber="0"/>
+				<vidSrc number="3" displayInputNumber="1" receiverInputNumber="2" altSwitcherInputNumber="0"/>
+				<vidSrc number="4" displayInputNumber="1" receiverInputNumber="2" altSwitcherInputNumber="0"/>
+			</videoSources>
+			<displayCommands useXMLcmds="0" powerOn="PWRON\x0D" PowerOff="PWROFF\x0D" input1="IN1\x0D" input2="IN2\x0D" input3="IN3\x0D"/>
+			<receiverCommands useXMLcmds="0" powerOn="PWRON\x0D" PowerOff="PWROFF\x0D" input1="IN1\x0D" input2="IN2\x0D" input3="IN3\x0D"/>
+			<musicSources>
+				<musicSrc number="4" receiverInputNumber="8"/>
+				<musicSrc number="2" receiverInputNumber="8"/>
+				<musicSrc number="3" receiverInputNumber="8"/>
+			</musicSources>
+		</room>
+		<room number="5" name="Gym">
+			<configuration subSystemScenarioNum="3" videoSwitcherOutputNum="5" numberOfSRCSperPage="6" sendToSpeakers="0">
+				<receiver hasReceiver="0" receiverHasVolFB="0" receiverInputDelay="5" musicThroughReceiver="0"/>
+				<music musicZoneNum="17" musicHasVolFB="1" videoVolThroughDistAudio="0"/>
+				<display displayInputDelay="8" tvHasVolFB="0"/>
+			</configuration>
+			<lift liftScenarioNum="0" openWithOnCmdNum="1" closeWithOffCmdNum="2">
+				<liftButton cmdNum="1" Name="Up" pulseTime="1"/>
+				<liftButton cmdNum="2" Name="Down" pulseTime="1"/>
+				<liftButton cmdNum="3" Name="Left" pulseTime="10"/>
+				<liftButton cmdNum="4" Name="Right" pulseTime="15"/>
+			</lift>
+			<sleep sleepScenarioNum="0" sleepButtonText="Sleep">
+				<sleepButton Name="15m" length="15"/>
+				<sleepButton Name="30m" length="30"/>
+				<sleepButton Name="60m" length="60"/>
+				<sleepButton Name="90m" length="90"/>
+			</sleep>
+			<!-- these buttons are generic and can be used for surround modes or screen size etc. up to 10 available -->
+			<format formatScenarioNum="0" formatButtonText="Format">
+				<formatButton cmdNum="1" Name="Dolby"/>
+				<formatButton cmdNum="2" Name="2 Ch Stereo"/>
+				<formatButton cmdNum="5" Name="All Ch Stereo"/>
+				<formatButton cmdNum="6" Name="DTS"/>
+			</format>
+			<videoSources>
+				<vidSrc number="1" displayInputNumber="1" receiverInputNumber="2" altSwitcherInputNumber="0"/>
+				<vidSrc number="2" displayInputNumber="1" receiverInputNumber="2" altSwitcherInputNumber="0"/>
+				<vidSrc number="3" displayInputNumber="1" receiverInputNumber="2" altSwitcherInputNumber="0"/>
+				<vidSrc number="4" displayInputNumber="1" receiverInputNumber="2" altSwitcherInputNumber="0"/>
+			</videoSources>
+			<displayCommands useXMLcmds="0" powerOn="PWRON\x0D" PowerOff="PWROFF\x0D" input1="IN1\x0D" input2="IN2\x0D" input3="IN3\x0D"/>
+			<receiverCommands useXMLcmds="0" powerOn="PWRON\x0D" PowerOff="PWROFF\x0D" input1="IN1\x0D" input2="IN2\x0D" input3="IN3\x0D"/>
+			<musicSources>
+				<musicSrc number="1" receiverInputNumber="8"/>
+				<musicSrc number="2" receiverInputNumber="8"/>
+				<musicSrc number="3" receiverInputNumber="8"/>
+				<musicSrc number="5" receiverInputNumber="5"/>
+			</musicSources>
+		</room>
+		<room number="6" name="Master Bed">
+			<configuration subSystemScenarioNum="3" videoSwitcherOutputNum="6" numberOfSRCSperPage="6" sendToSpeakers="0">
+				<receiver hasReceiver="0" receiverHasVolFB="0" receiverInputDelay="5" musicThroughReceiver="0"/>
+				<music musicZoneNum="19" musicHasVolFB="1" videoVolThroughDistAudio="0"/>
+				<display displayInputDelay="8" tvHasVolFB="0"/>
+			</configuration>
+			<lift liftScenarioNum="4" openWithOnCmdNum="1" closeWithOffCmdNum="2">
+				<liftButton cmdNum="1" Name="Up" pulseTime="100"/>
+				<liftButton cmdNum="2" Name="Down" pulseTime="100"/>
+				<liftButton cmdNum="3" Name="Left" pulseTime="1000"/>
+				<liftButton cmdNum="4" Name="Right" pulseTime="1500"/>
+			</lift>
+			<sleep sleepScenarioNum="2" sleepButtonText="Sleep Timer">
+				<sleepButton Name="15m" length="15"/>
+				<sleepButton Name="30m" length="30"/>
+				<sleepButton Name="60m" length="60"/>
+				<sleepButton Name="90m" length="90"/>
+			</sleep>
+			<!-- these buttons are generic and can be used for surround modes or screen size etc. up to 10 available -->
+			<format formatScenarioNum="0" formatButtonText="Format">
+				<formatButton cmdNum="1" Name="Dolby"/>
+				<formatButton cmdNum="2" Name="2 Ch Stereo"/>
+				<formatButton cmdNum="5" Name="All Ch Stereo"/>
+				<formatButton cmdNum="6" Name="DTS"/>
+			</format>
+			<videoSources>
+				<vidSrc number="1" displayInputNumber="1" receiverInputNumber="2" altSwitcherInputNumber="0"/>
+				<vidSrc number="2" displayInputNumber="1" receiverInputNumber="2" altSwitcherInputNumber="0"/>
+				<vidSrc number="3" displayInputNumber="1" receiverInputNumber="2" altSwitcherInputNumber="0"/>
+				<vidSrc number="4" displayInputNumber="1" receiverInputNumber="2" altSwitcherInputNumber="0"/>
+			</videoSources>
+			<displayCommands useXMLcmds="0" powerOn="PWRON\x0D" PowerOff="PWROFF\x0D" input1="IN1\x0D" input2="IN2\x0D" input3="IN3\x0D"/>
+			<receiverCommands useXMLcmds="0" powerOn="PWRON\x0D" PowerOff="PWROFF\x0D" input1="IN1\x0D" input2="IN2\x0D" input3="IN3\x0D"/>
+			<musicSources>
+				<musicSrc number="1" receiverInputNumber="8"/>
+				<musicSrc number="2" receiverInputNumber="8"/>
+				<musicSrc number="3" receiverInputNumber="8"/>
+				<musicSrc number="5" receiverInputNumber="5"/>
+			</musicSources>
+		</room>
+		<room number="7" name="Master Bath">
+			<configuration subSystemScenarioNum="3" videoSwitcherOutputNum="7" numberOfSRCSperPage="6" sendToSpeakers="0">
+				<receiver hasReceiver="0" receiverHasVolFB="0" receiverInputDelay="5" musicThroughReceiver="0"/>
+				<music musicZoneNum="23" musicHasVolFB="1" videoVolThroughDistAudio="0"/>
+				<display displayInputDelay="8" tvHasVolFB="0"/>
+			</configuration>
+			<lift liftScenarioNum="0" openWithOnCmdNum="1" closeWithOffCmdNum="2">
+				<liftButton cmdNum="1" Name="Up" pulseTime="100"/>
+				<liftButton cmdNum="2" Name="Down" pulseTime="100"/>
+				<liftButton cmdNum="3" Name="Left" pulseTime="100"/>
+				<liftButton cmdNum="4" Name="Right" pulseTime="150"/>
+			</lift>
+			<sleep sleepScenarioNum="1" sleepButtonText="Sleep">
+				<sleepButton Name="15m" length="15"/>
+				<sleepButton Name="30m" length="30"/>
+				<sleepButton Name="60m" length="60"/>
+				<sleepButton Name="90m" length="90"/>
+			</sleep>
+			<!-- these buttons are generic and can be used for surround modes or screen size etc. up to 10 available -->
+			<format formatScenarioNum="0" formatButtonText="Format">
+				<formatButton cmdNum="1" Name="Dolby"/>
+				<formatButton cmdNum="2" Name="2 Ch Stereo"/>
+				<formatButton cmdNum="5" Name="All Ch Stereo"/>
+				<formatButton cmdNum="6" Name="DTS"/>
+			</format>
+			<videoSources>
+				<vidSrc number="1" displayInputNumber="1" receiverInputNumber="2" altSwitcherInputNumber="0"/>
+				<vidSrc number="2" displayInputNumber="1" receiverInputNumber="2" altSwitcherInputNumber="0"/>
+				<vidSrc number="3" displayInputNumber="1" receiverInputNumber="2" altSwitcherInputNumber="0"/>
+				<vidSrc number="4" displayInputNumber="1" receiverInputNumber="2" altSwitcherInputNumber="0"/>
+			</videoSources>
+			<displayCommands useXMLcmds="0" powerOn="PWRON\x0D" PowerOff="PWROFF\x0D" input1="IN1\x0D" input2="IN2\x0D" input3="IN3\x0D"/>
+			<receiverCommands useXMLcmds="0" powerOn="PWRON\x0D" PowerOff="PWROFF\x0D" input1="IN1\x0D" input2="IN2\x0D" input3="IN3\x0D"/>
+			<musicSources>
+				<musicSrc number="1" receiverInputNumber="8"/>
+				<musicSrc number="2" receiverInputNumber="8"/>
+				<musicSrc number="3" receiverInputNumber="8"/>
+				<musicSrc number="5" receiverInputNumber="5"/>
+			</musicSources>
+		</room>
+		<room number="8" name="Office">
+			<configuration subSystemScenarioNum="3" videoSwitcherOutputNum="8" numberOfSRCSperPage="6" sendToSpeakers="0">
+				<receiver hasReceiver="0" receiverHasVolFB="0" receiverInputDelay="5" musicThroughReceiver="0"/>
+				<music musicZoneNum="24" musicHasVolFB="1" videoVolThroughDistAudio="0"/>
+				<display displayInputDelay="8" tvHasVolFB="0"/>
+			</configuration>
+			<lift liftScenarioNum="0" openWithOnCmdNum="1" closeWithOffCmdNum="2">
+				<liftButton cmdNum="1" Name="Up" pulseTime="1"/>
+				<liftButton cmdNum="2" Name="Down" pulseTime="1"/>
+				<liftButton cmdNum="3" Name="Left" pulseTime="10"/>
+				<liftButton cmdNum="4" Name="Right" pulseTime="15"/>
+			</lift>
+			<sleep sleepScenarioNum="0" sleepButtonText="Sleep">
+				<sleepButton Name="15m" length="15"/>
+				<sleepButton Name="30m" length="30"/>
+				<sleepButton Name="60m" length="60"/>
+				<sleepButton Name="90m" length="90"/>
+			</sleep>
+			<!-- these buttons are generic and can be used for surround modes or screen size etc. up to 10 available -->
+			<format formatScenarioNum="0" formatButtonText="Format">
+				<formatButton cmdNum="1" Name="Dolby"/>
+				<formatButton cmdNum="2" Name="2 Ch Stereo"/>
+				<formatButton cmdNum="5" Name="All Ch Stereo"/>
+				<formatButton cmdNum="6" Name="DTS"/>
+			</format>
+			<videoSources>
+				<vidSrc number="1" displayInputNumber="1" receiverInputNumber="2" altSwitcherInputNumber="0"/>
+				<vidSrc number="2" displayInputNumber="1" receiverInputNumber="2" altSwitcherInputNumber="0"/>
+				<vidSrc number="3" displayInputNumber="1" receiverInputNumber="2" altSwitcherInputNumber="0"/>
+				<vidSrc number="4" displayInputNumber="1" receiverInputNumber="2" altSwitcherInputNumber="0"/>
+			</videoSources>
+			<displayCommands useXMLcmds="0" powerOn="PWRON\x0D" PowerOff="PWROFF\x0D" input1="IN1\x0D" input2="IN2\x0D" input3="IN3\x0D"/>
+			<receiverCommands useXMLcmds="0" powerOn="PWRON\x0D" PowerOff="PWROFF\x0D" input1="IN1\x0D" input2="IN2\x0D" input3="IN3\x0D"/>
+			<musicSources>
+				<musicSrc number="1" receiverInputNumber="8"/>
+				<musicSrc number="2" receiverInputNumber="8"/>
+				<musicSrc number="3" receiverInputNumber="8"/>
+				<musicSrc number="5" receiverInputNumber="5"/>
+			</musicSources>
+		</room>
+		<room number="9" name="Library">
+			<configuration subSystemScenarioNum="3" videoSwitcherOutputNum="9" numberOfSRCSperPage="6" sendToSpeakers="0">
+				<receiver hasReceiver="0" receiverHasVolFB="0" receiverInputDelay="5" musicThroughReceiver="0"/>
+				<music musicZoneNum="0" musicHasVolFB="1" videoVolThroughDistAudio="0"/>
+				<display displayInputDelay="8" tvHasVolFB="0"/>
+			</configuration>
+			<lift liftScenarioNum="0" openWithOnCmdNum="1" closeWithOffCmdNum="2">
+				<liftButton cmdNum="1" Name="Up" pulseTime="1"/>
+				<liftButton cmdNum="2" Name="Down" pulseTime="1"/>
+				<liftButton cmdNum="3" Name="Left" pulseTime="10"/>
+				<liftButton cmdNum="4" Name="Right" pulseTime="15"/>
+			</lift>
+			<sleep sleepScenarioNum="0" sleepButtonText="Sleep">
+				<sleepButton Name="15m" length="15"/>
+				<sleepButton Name="30m" length="30"/>
+				<sleepButton Name="60m" length="60"/>
+				<sleepButton Name="90m" length="90"/>
+			</sleep>
+			<!-- these buttons are generic and can be used for surround modes or screen size etc. up to 10 available -->
+			<format formatScenarioNum="0" formatButtonText="Format">
+				<formatButton cmdNum="1" Name="Dolby"/>
+				<formatButton cmdNum="2" Name="2 Ch Stereo"/>
+				<formatButton cmdNum="5" Name="All Ch Stereo"/>
+				<formatButton cmdNum="6" Name="DTS"/>
+			</format>
+			<videoSources>
+				<vidSrc number="1" displayInputNumber="1" receiverInputNumber="2" altSwitcherInputNumber="0"/>
+				<vidSrc number="2" displayInputNumber="1" receiverInputNumber="2" altSwitcherInputNumber="0"/>
+				<vidSrc number="3" displayInputNumber="1" receiverInputNumber="2" altSwitcherInputNumber="0"/>
+				<vidSrc number="4" displayInputNumber="1" receiverInputNumber="2" altSwitcherInputNumber="0"/>
+			</videoSources>
+			<displayCommands useXMLcmds="0" powerOn="PWRON\x0D" PowerOff="PWROFF\x0D" input1="IN1\x0D" input2="IN2\x0D" input3="IN3\x0D"/>
+			<receiverCommands useXMLcmds="0" powerOn="PWRON\x0D" PowerOff="PWROFF\x0D" input1="IN1\x0D" input2="IN2\x0D" input3="IN3\x0D"/>
+			<musicSources>
+				<musicSrc number="1" receiverInputNumber="8"/>
+				<musicSrc number="2" receiverInputNumber="8"/>
+				<musicSrc number="3" receiverInputNumber="8"/>
+				<musicSrc number="5" receiverInputNumber="5"/>
+			</musicSources>
+		</room>
+		<room number="10" name="Theater">
+			<configuration subSystemScenarioNum="3" videoSwitcherOutputNum="10" numberOfSRCSperPage="6" sendToSpeakers="0">
+				<receiver hasReceiver="1" receiverHasVolFB="1" receiverInputDelay="5" musicThroughReceiver="0"/>
+				<music musicZoneNum="44" musicHasVolFB="1" videoVolThroughDistAudio="0"/>
+				<display displayInputDelay="8" tvHasVolFB="0"/>
+			</configuration>
+			<lift liftScenarioNum="0" openWithOnCmdNum="1" closeWithOffCmdNum="2">
+				<liftButton cmdNum="1" Name="Up" pulseTime="1"/>
+				<liftButton cmdNum="2" Name="Down" pulseTime="1"/>
+				<liftButton cmdNum="3" Name="Left" pulseTime="10"/>
+				<liftButton cmdNum="4" Name="Right" pulseTime="15"/>
+			</lift>
+			<sleep sleepScenarioNum="0" sleepButtonText="Sleep">
+				<sleepButton Name="15m" length="15"/>
+				<sleepButton Name="30m" length="30"/>
+				<sleepButton Name="60m" length="60"/>
+				<sleepButton Name="90m" length="90"/>
+			</sleep>
+			<!-- these buttons are generic and can be used for surround modes or screen size etc. up to 10 available -->
+			<format formatScenarioNum="2" formatButtonText="Format">
+				<formatButton cmdNum="1" Name="Dolby"/>
+				<formatButton cmdNum="2" Name="2 Ch Stereo"/>
+				<formatButton cmdNum="5" Name="All Ch Stereo"/>
+				<formatButton cmdNum="6" Name="DTS"/>
+			</format>
+			<videoSources>
+				<vidSrc number="1" displayInputNumber="1" receiverInputNumber="2" altSwitcherInputNumber="0"/>
+				<vidSrc number="2" displayInputNumber="1" receiverInputNumber="2" altSwitcherInputNumber="0"/>
+				<vidSrc number="3" displayInputNumber="1" receiverInputNumber="2" altSwitcherInputNumber="0"/>
+				<vidSrc number="4" displayInputNumber="1" receiverInputNumber="2" altSwitcherInputNumber="0"/>
+			</videoSources>
+			<displayCommands useXMLcmds="0" powerOn="PWRON\x0D" PowerOff="PWROFF\x0D" input1="IN1\x0D" input2="IN2\x0D" input3="IN3\x0D"/>
+			<receiverCommands useXMLcmds="0" powerOn="PWRON\x0D" PowerOff="PWROFF\x0D" input1="IN1\x0D" input2="IN2\x0D" input3="IN3\x0D"/>
+			<musicSources>
+				<musicSrc number="1" receiverInputNumber="8"/>
+				<musicSrc number="2" receiverInputNumber="8"/>
+				<musicSrc number="3" receiverInputNumber="8"/>
+				<musicSrc number="5" receiverInputNumber="5"/>
+			</musicSources>
+		</room>
+		<room number="11" name="Man Cave">
+			<configuration subSystemScenarioNum="3" videoSwitcherOutputNum="11" numberOfSRCSperPage="6" sendToSpeakers="0">
+				<receiver hasReceiver="1" receiverHasVolFB="1" receiverInputDelay="5" musicThroughReceiver="0"/>
+				<music musicZoneNum="39" musicHasVolFB="1" videoVolThroughDistAudio="0"/>
+				<display displayInputDelay="8" tvHasVolFB="0"/>
+			</configuration>
+			<lift liftScenarioNum="0" openWithOnCmdNum="1" closeWithOffCmdNum="2">
+				<liftButton cmdNum="1" Name="Up" pulseTime="1"/>
+				<liftButton cmdNum="2" Name="Down" pulseTime="1"/>
+				<liftButton cmdNum="3" Name="Left" pulseTime="10"/>
+				<liftButton cmdNum="4" Name="Right" pulseTime="15"/>
+			</lift>
+			<sleep sleepScenarioNum="1" sleepButtonText="Sleep">
+				<sleepButton Name="15m" length="15"/>
+				<sleepButton Name="30m" length="30"/>
+				<sleepButton Name="60m" length="60"/>
+				<sleepButton Name="90m" length="90"/>
+			</sleep>
+			<!-- these buttons are generic and can be used for surround modes or screen size etc. up to 10 available -->
+			<format formatScenarioNum="1" formatButtonText="Format">
+				<formatButton cmdNum="1" Name="Dolby"/>
+				<formatButton cmdNum="2" Name="2 Ch Stereo"/>
+				<formatButton cmdNum="5" Name="All Ch Stereo"/>
+				<formatButton cmdNum="6" Name="DTS"/>
+			</format>
+			<videoSources>
+				<vidSrc number="1" displayInputNumber="1" receiverInputNumber="2" altSwitcherInputNumber="0"/>
+				<vidSrc number="2" displayInputNumber="1" receiverInputNumber="2" altSwitcherInputNumber="0"/>
+				<vidSrc number="3" displayInputNumber="1" receiverInputNumber="2" altSwitcherInputNumber="0"/>
+				<vidSrc number="4" displayInputNumber="1" receiverInputNumber="2" altSwitcherInputNumber="0"/>
+			</videoSources>
+			<displayCommands useXMLcmds="0" powerOn="PWRON\x0D" PowerOff="PWROFF\x0D" input1="IN1\x0D" input2="IN2\x0D" input3="IN3\x0D"/>
+			<receiverCommands useXMLcmds="0" powerOn="PWRON\x0D" PowerOff="PWROFF\x0D" input1="IN1\x0D" input2="IN2\x0D" input3="IN3\x0D"/>
+			<musicSources>
+				<musicSrc number="1" receiverInputNumber="8"/>
+				<musicSrc number="2" receiverInputNumber="8"/>
+				<musicSrc number="3" receiverInputNumber="8"/>
+				<musicSrc number="5" receiverInputNumber="5"/>
+			</musicSources>
+		</room>
+		<room number="12" name="UNUSED">
+			<configuration subSystemScenarioNum="3" videoSwitcherOutputNum="12" numberOfSRCSperPage="6" sendToSpeakers="0">
+				<receiver hasReceiver="0" receiverHasVolFB="0" receiverInputDelay="5" musicThroughReceiver="0"/>
+				<music musicZoneNum="0" musicHasVolFB="1" videoVolThroughDistAudio="0"/>
+				<display displayInputDelay="8" tvHasVolFB="0"/>
+			</configuration>
+			<lift liftScenarioNum="0" openWithOnCmdNum="1" closeWithOffCmdNum="2">
+				<liftButton cmdNum="1" Name="Up" pulseTime="1"/>
+				<liftButton cmdNum="2" Name="Down" pulseTime="1"/>
+				<liftButton cmdNum="3" Name="Left" pulseTime="10"/>
+				<liftButton cmdNum="4" Name="Right" pulseTime="15"/>
+			</lift>
+			<sleep sleepScenarioNum="1" sleepButtonText="Sleep">
+				<sleepButton Name="15m" length="15"/>
+				<sleepButton Name="30m" length="30"/>
+				<sleepButton Name="60m" length="60"/>
+				<sleepButton Name="90m" length="90"/>
+			</sleep>
+			<!-- these buttons are generic and can be used for surround modes or screen size etc. up to 10 available -->
+			<format formatScenarioNum="1" formatButtonText="Format">
+				<formatButton cmdNum="1" Name="Dolby"/>
+				<formatButton cmdNum="2" Name="2 Ch Stereo"/>
+				<formatButton cmdNum="5" Name="All Ch Stereo"/>
+				<formatButton cmdNum="6" Name="DTS"/>
+			</format>
+			<videoSources>
+				<vidSrc number="1" displayInputNumber="1" receiverInputNumber="2" altSwitcherInputNumber="0"/>
+				<vidSrc number="2" displayInputNumber="1" receiverInputNumber="2" altSwitcherInputNumber="0"/>
+				<vidSrc number="3" displayInputNumber="1" receiverInputNumber="2" altSwitcherInputNumber="0"/>
+				<vidSrc number="4" displayInputNumber="1" receiverInputNumber="2" altSwitcherInputNumber="0"/>
+			</videoSources>
+			<displayCommands useXMLcmds="0" powerOn="PWRON\x0D" PowerOff="PWROFF\x0D" input1="IN1\x0D" input2="IN2\x0D" input3="IN3\x0D"/>
+			<receiverCommands useXMLcmds="0" powerOn="PWRON\x0D" PowerOff="PWROFF\x0D" input1="IN1\x0D" input2="IN2\x0D" input3="IN3\x0D"/>
+			<musicSources>
+				<musicSrc number="1" receiverInputNumber="8"/>
+				<musicSrc number="2" receiverInputNumber="8"/>
+				<musicSrc number="3" receiverInputNumber="8"/>
+				<musicSrc number="5" receiverInputNumber="5"/>
+			</musicSources>
+		</room>
+		<room number="13" name="UNUSED">
+			<configuration subSystemScenarioNum="3" videoSwitcherOutputNum="13" numberOfSRCSperPage="6" sendToSpeakers="0">
+				<receiver hasReceiver="0" receiverHasVolFB="0" receiverInputDelay="5" musicThroughReceiver="0"/>
+				<music musicZoneNum="0" musicHasVolFB="1" videoVolThroughDistAudio="0"/>
+				<display displayInputDelay="8" tvHasVolFB="0"/>
+			</configuration>
+			<lift liftScenarioNum="0" openWithOnCmdNum="1" closeWithOffCmdNum="2">
+				<liftButton cmdNum="1" Name="Up" pulseTime="1"/>
+				<liftButton cmdNum="2" Name="Down" pulseTime="1"/>
+				<liftButton cmdNum="3" Name="Left" pulseTime="10"/>
+				<liftButton cmdNum="4" Name="Right" pulseTime="15"/>
+			</lift>
+			<sleep sleepScenarioNum="1" sleepButtonText="Sleep">
+				<sleepButton Name="15m" length="15"/>
+				<sleepButton Name="30m" length="30"/>
+				<sleepButton Name="60m" length="60"/>
+				<sleepButton Name="90m" length="90"/>
+			</sleep>
+			<!-- these buttons are generic and can be used for surround modes or screen size etc. up to 10 available -->
+			<format formatScenarioNum="1" formatButtonText="Format">
+				<formatButton cmdNum="1" Name="Dolby"/>
+				<formatButton cmdNum="2" Name="2 Ch Stereo"/>
+				<formatButton cmdNum="5" Name="All Ch Stereo"/>
+				<formatButton cmdNum="6" Name="DTS"/>
+			</format>
+			<videoSources>
+				<vidSrc number="1" displayInputNumber="1" receiverInputNumber="2" altSwitcherInputNumber="0"/>
+				<vidSrc number="2" displayInputNumber="1" receiverInputNumber="2" altSwitcherInputNumber="0"/>
+				<vidSrc number="3" displayInputNumber="1" receiverInputNumber="2" altSwitcherInputNumber="0"/>
+				<vidSrc number="4" displayInputNumber="1" receiverInputNumber="2" altSwitcherInputNumber="0"/>
+			</videoSources>
+			<displayCommands useXMLcmds="0" powerOn="PWRON\x0D" PowerOff="PWROFF\x0D" input1="IN1\x0D" input2="IN2\x0D" input3="IN3\x0D"/>
+			<receiverCommands useXMLcmds="0" powerOn="PWRON\x0D" PowerOff="PWROFF\x0D" input1="IN1\x0D" input2="IN2\x0D" input3="IN3\x0D"/>
+			<musicSources>
+				<musicSrc number="1" receiverInputNumber="8"/>
+				<musicSrc number="2" receiverInputNumber="8"/>
+				<musicSrc number="3" receiverInputNumber="8"/>
+				<musicSrc number="5" receiverInputNumber="5"/>
+			</musicSources>
+		</room>
+		<room number="14" name="UNUSED">
+			<configuration subSystemScenarioNum="3" videoSwitcherOutputNum="14" numberOfSRCSperPage="6" sendToSpeakers="0">
+				<receiver hasReceiver="0" receiverHasVolFB="0" receiverInputDelay="5" musicThroughReceiver="0" surroundScenarioNum="0" surroundButtonText="Format"/>
+				<music musicZoneNum="0" musicHasVolFB="1" videoVolThroughDistAudio="0"/>
+				<display displayInputDelay="8" tvHasVolFB="0"/>
+			</configuration>
+			<lift liftScenarioNum="0" openWithOnCmdNum="1" closeWithOffCmdNum="2">
+				<liftButton cmdNum="1" Name="Up" pulseTime="1"/>
+				<liftButton cmdNum="2" Name="Down" pulseTime="1"/>
+				<liftButton cmdNum="3" Name="Left" pulseTime="10"/>
+				<liftButton cmdNum="4" Name="Right" pulseTime="15"/>
+			</lift>
+			<videoSources>
+				<vidSrc number="1" displayInputNumber="1" receiverInputNumber="2" altSwitcherInputNumber="0"/>
+				<vidSrc number="2" displayInputNumber="1" receiverInputNumber="2" altSwitcherInputNumber="0"/>
+				<vidSrc number="3" displayInputNumber="1" receiverInputNumber="2" altSwitcherInputNumber="0"/>
+				<vidSrc number="4" displayInputNumber="1" receiverInputNumber="2" altSwitcherInputNumber="0"/>
+			</videoSources>
+			<displayCommands useXMLcmds="0" powerOn="PWRON\x0D" PowerOff="PWROFF\x0D" input1="IN1\x0D" input2="IN2\x0D" input3="IN3\x0D"/>
+			<receiverCommands useXMLcmds="0" powerOn="PWRON\x0D" PowerOff="PWROFF\x0D" input1="IN1\x0D" input2="IN2\x0D" input3="IN3\x0D"/>
+			<musicSources>
+				<musicSrc number="1" receiverInputNumber="8"/>
+				<musicSrc number="2" receiverInputNumber="8"/>
+				<musicSrc number="3" receiverInputNumber="8"/>
+				<musicSrc number="5" receiverInputNumber="5"/>
+			</musicSources>
+		</room>
+		<room number="15" name="UNUSED">
+			<configuration subSystemScenarioNum="3" videoSwitcherOutputNum="15" numberOfSRCSperPage="6" sendToSpeakers="0">
+				<receiver hasReceiver="0" receiverHasVolFB="0" receiverInputDelay="5" musicThroughReceiver="0" surroundScenarioNum="0" surroundButtonText="Format"/>
+				<music musicZoneNum="0" musicHasVolFB="1" videoVolThroughDistAudio="0"/>
+				<display displayInputDelay="8" tvHasVolFB="0"/>
+			</configuration>
+			<lift liftScenarioNum="0" openWithOnCmdNum="1" closeWithOffCmdNum="2">
+				<liftButton cmdNum="1" Name="Up" pulseTime="1"/>
+				<liftButton cmdNum="2" Name="Down" pulseTime="1"/>
+				<liftButton cmdNum="3" Name="Left" pulseTime="10"/>
+				<liftButton cmdNum="4" Name="Right" pulseTime="15"/>
+			</lift>
+			<videoSources>
+				<vidSrc number="1" displayInputNumber="1" receiverInputNumber="2" altSwitcherInputNumber="0"/>
+				<vidSrc number="2" displayInputNumber="1" receiverInputNumber="2" altSwitcherInputNumber="0"/>
+				<vidSrc number="3" displayInputNumber="1" receiverInputNumber="2" altSwitcherInputNumber="0"/>
+				<vidSrc number="4" displayInputNumber="1" receiverInputNumber="2" altSwitcherInputNumber="0"/>
+			</videoSources>
+			<displayCommands useXMLcmds="0" powerOn="PWRON\x0D" PowerOff="PWROFF\x0D" input1="IN1\x0D" input2="IN2\x0D" input3="IN3\x0D"/>
+			<receiverCommands useXMLcmds="0" powerOn="PWRON\x0D" PowerOff="PWROFF\x0D" input1="IN1\x0D" input2="IN2\x0D" input3="IN3\x0D"/>
+			<musicSources>
+				<musicSrc number="1" receiverInputNumber="8"/>
+				<musicSrc number="2" receiverInputNumber="8"/>
+				<musicSrc number="3" receiverInputNumber="8"/>
+				<musicSrc number="5" receiverInputNumber="5"/>
+			</musicSources>
+		</room>
+		<room number="16" name="UNUSED">
+			<configuration subSystemScenarioNum="3" videoSwitcherOutputNum="16" numberOfSRCSperPage="6" sendToSpeakers="0">
+				<receiver hasReceiver="0" receiverHasVolFB="0" receiverInputDelay="5" musicThroughReceiver="0" surroundScenarioNum="0" surroundButtonText="Format"/>
+				<music musicZoneNum="0" musicHasVolFB="1" videoVolThroughDistAudio="0"/>
+				<display displayInputDelay="8" tvHasVolFB="0"/>
+			</configuration>
+			<lift liftScenarioNum="0" openWithOnCmdNum="1" closeWithOffCmdNum="2">
+				<liftButton cmdNum="1" Name="Up" pulseTime="1"/>
+				<liftButton cmdNum="2" Name="Down" pulseTime="1"/>
+				<liftButton cmdNum="3" Name="Left" pulseTime="10"/>
+				<liftButton cmdNum="4" Name="Right" pulseTime="15"/>
+			</lift>
+			<videoSources>
+				<vidSrc number="1" displayInputNumber="1" receiverInputNumber="2" altSwitcherInputNumber="0"/>
+				<vidSrc number="2" displayInputNumber="1" receiverInputNumber="2" altSwitcherInputNumber="0"/>
+				<vidSrc number="3" displayInputNumber="1" receiverInputNumber="2" altSwitcherInputNumber="0"/>
+				<vidSrc number="4" displayInputNumber="1" receiverInputNumber="2" altSwitcherInputNumber="0"/>
+			</videoSources>
+			<displayCommands useXMLcmds="0" powerOn="PWRON\x0D" PowerOff="PWROFF\x0D" input1="IN1\x0D" input2="IN2\x0D" input3="IN3\x0D"/>
+			<receiverCommands useXMLcmds="0" powerOn="PWRON\x0D" PowerOff="PWROFF\x0D" input1="IN1\x0D" input2="IN2\x0D" input3="IN3\x0D"/>
+			<musicSources>
+				<musicSrc number="1" receiverInputNumber="8"/>
+				<musicSrc number="2" receiverInputNumber="8"/>
+				<musicSrc number="3" receiverInputNumber="8"/>
+				<musicSrc number="5" receiverInputNumber="5"/>
+			</musicSources>
+		</room>
+	</rooms>
+	<!-- number attribute is a label only. its not used by the program. the position in the list IS used. -->
+	<videoSrcs>
+		<vidSrc number="1" Name="DVR #1" iconSerial="DVR Alt" analogModeNumber="1" vidSwitcherInputNumber="1" audSwitcherInputNumber="0" flipsToPageNumber="1" xpointID="101"/>
+		<vidSrc number="2" Name="DVR #2" iconSerial="DVR Alt" analogModeNumber="1" vidSwitcherInputNumber="2" audSwitcherInputNumber="0" flipsToPageNumber="1" xpointID="102"/>
+		<vidSrc number="3" Name="DVR #3" iconSerial="DVR Alt" analogModeNumber="1" vidSwitcherInputNumber="3" audSwitcherInputNumber="0" flipsToPageNumber="1" xpointID="103"/>
+		<vidSrc number="4" Name="Apple TV" iconSerial="AppleTV" analogModeNumber="3" vidSwitcherInputNumber="4" audSwitcherInputNumber="0" flipsToPageNumber="3" xpointID="105"/>
+		<vidSrc number="5" Name="Blu Ray" iconSerial="Blu-ray" analogModeNumber="2" vidSwitcherInputNumber="0" audSwitcherInputNumber="0" flipsToPageNumber="4" xpointID="117"/>		
+	</videoSrcs>
+</ROOT>
