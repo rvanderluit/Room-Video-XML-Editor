@@ -18,9 +18,9 @@ class Room:
                 self.rec_has_vol_fb = 0
                 self.rec_input_command_delay = 0
                 self.rec_has_dist_audio = 0
-                self.music_zone_number = ""
-                self.music_has_vol_fb = None
-                self.vid_vol_through_dist_audio = None
+                self.music_zone_number = 0
+                self.music_has_vol_fb = 0
+                self.vid_vol_through_dist_audio = 0
                 self.display_input_delay = 5
                 self.display_has_vol_fb = 0
                 self.lift_scenario_num = "0"
@@ -29,7 +29,7 @@ class Room:
                 self.lift_button_cmd_num = [0, 0, 0, 0, 0]
                 self.lift_button_names = [" ", " ", " ", " ", " "]
                 self.lift_pulse_times = [0, 0, 0, 0, 0]
-                self.sleep_scenario_num = 0
+                self.sleep_scenario_num = "0"
                 self.sleep_button_text = " "
                 self.sleep_button_names = [" ", " ", " ", " ", " "]
                 self.sleep_button_lengths = [0, 0, 0, 0, 0]
@@ -49,10 +49,70 @@ class Room:
 def read_xml():
         tree = etree.parse('roomAVDistribution.xml')
         root = tree.getroot()
-        index = int(listbox.curselection()[0])
         roomz = root.find('rooms')
-        room = roomz.find('room[@number="%s"]' % (index+1))
+        ii = 0
+        for room in roomz.findall('room'):
+
+                if ii+1 not in room_numbers:
+                        print('added room %s' % ii)
+                        rooms.insert(ii, Room())
+                        room_numbers.insert(ii, ii+1)
+                        roomListBox.insert(ii, str(ii+1) + " " + room.get('name'))
+                else:
+                        roomListBox.delete(ii)
+                        roomListBox.insert(ii, str(ii + 1) + " " + room.get('name'))
+                print(ii)
+                rooms[ii].name = room.get('name')
+                config = room.find('configuration')
+                rooms[ii].vid_switcher_output_num = config.get('videoSwitcherOutputNum')
+                rooms[ii].send_to_speakers = config.get('sendToSpeakers')
+                # LOCAL AVR SECTION ###
+                rec = config.find('receiver')
+                rooms[ii].has_local_rec = rec.get('hasReceiver')
+                rooms[ii].rec_has_vol_fb = rec.get('receiverHasVolFB')
+                rooms[ii].rec_input_command_delay = rec.get('receiverInputDelay')
+                rooms[ii].rec_has_dist_audio = rec.get('musicThroughReceiver')
+                # MUSIC #####
+                music = config.find('music')
+                rooms[ii].music_zone_number = music.get('musicZoneNum')
+                rooms[ii].music_has_vol_fb = music.get('musicHasVolFB')
+                rooms[ii].vid_vol_through_dist_audio = music.get('videoVolThroughDistAudio')
+                # DISPLAY ####
+                display = config.find('display')
+                rooms[ii].display_input_delay = display.get('displayInputDelay')
+                rooms[ii].display_has_vol_fb = display.get('tvHasVolFB')
+                # LIFT ####
+                lift = room.find('lift')
+                rooms[ii].lift_scenario_num = lift.get('liftScenarioNum')
+                rooms[ii].lift_open_with_on_cmd_num = lift.get('openWithOnCmdNum')
+                rooms[ii].lift_close_with_off_cmd_num = lift.get('closeWithOffCmdNum')
+                x = 0
+                for lift_button in lift.findall('liftButton'):
+                        rooms[ii].lift_button_cmd_num[x] = lift_button.get('cmdNum')
+                        rooms[ii].lift_button_names[x] = lift_button.get('Name')
+                        rooms[ii].lift_pulse_times[x] = lift_button.get('pulseTime')
+                        x += 1
+                sleep = room.find('sleep')
+                rooms[ii].sleep_scenario_num = sleep.get('sleepScenarioNum')
+                rooms[ii].sleep_button_text = sleep.get('sleepButtonText')
+                x = 0
+                for sleep_button in sleep.findall('sleepButton'):
+                        rooms[ii].sleep_button_names[x] = sleep_button.get('Name')
+                        rooms[ii].sleep_button_lengths[x] = sleep_button.get('length')
+                        x += 1
+                # FORMAT ####
+                vid_format = room.find('format')
+                rooms[ii].format_scenario_num = vid_format.get('formatScenarioNum')
+                rooms[ii].format_button_text = vid_format.get('formatButtonText')
+                x = 0
+                for format_button in vid_format.findall('formatButton'):
+                        rooms[ii].format_button_cmd_num[x] = format_button.get('cmdNum')
+                        rooms[ii].format_button_names[x] = format_button.get('Name')
+                ii += 1
+
         print(room.get('name'))
+        print(config.get('videoSwitcherOutputNum'))
+        print(rec.get('hasReceiver'))
         
         # lists = filter(lambda x: 'Room' in x.get('name'), rooms.findall(".//room[@name]"))
         # print(lists)
@@ -63,7 +123,7 @@ def read_xml():
 def write_xml():
         tree = etree.parse('roomAVDistribution.xml')
         root = tree.getroot()
-        index = int(listbox.curselection()[0])
+        index = int(roomListBox.curselection()[0])
         roomz = root.find('rooms')
         room = roomz.find('room[@number="%s"]' % (index+1))  # move to the right room
         room.set('name', rooms[index].name)  # update the room name
@@ -121,7 +181,7 @@ def write_xml():
                 
 def add_room_button():
         room_number = lowest_open_room_number()
-        listbox.insert(room_number-1, room_number)
+        roomListBox.insert(room_number-1, room_number)
         room_numbers.insert(room_number-1, room_number)
         rooms.insert(room_number-1, Room())
         rooms[room_number-1].number = room_number
@@ -144,6 +204,11 @@ def room_button_click(evt):
         vidVolDist.set(rooms[index].vid_vol_through_dist_audio)
         displayInputCmdDelay.set(rooms[index].display_input_delay)
         displayVol.set(rooms[index].display_has_vol_fb)
+        if int(rooms[index].lift_scenario_num) > 0:
+                liftVis.set(1)
+        else:
+                liftVis.set(0)
+        lift_visible()
         liftScenarioNum.set(rooms[index].lift_scenario_num)
         liftOpenCmd.set(rooms[index].lift_open_with_on_cmd_num)
         liftCloseCmd.set(rooms[index].lift_close_with_off_cmd_num)
@@ -152,46 +217,63 @@ def room_button_click(evt):
                 liftBtnNames[x].set(rooms[index].lift_button_names[x])
                 liftBtnTimes[x].set(rooms[index].lift_pulse_times[x])
 
+        if int(rooms[index].sleep_scenario_num) > 0:
+                sleepVis.set(1)
+        else:
+                sleepVis.set(0)
+        sleep_visible()
         sleepScenarioNum.set(rooms[index].sleep_scenario_num)
         sleepButtonName.set(rooms[index].sleep_button_text)
         for x in range(0, 4):
                 sleepBtnNames[x].set(rooms[index].sleep_button_names[x])
                 sleepTimes[x].set(rooms[index].sleep_button_lengths[x])
 
+        if int(rooms[index].format_scenario_num) > 0:
+                formatVis.set(1)
+        else:
+                formatVis.set(0)
+        surround_visible()
         surroundScenarioNum.set(rooms[index].format_scenario_num)
         surroundButtonName.set(rooms[index].format_button_text)
         for x in range(0, 4):
-                formatBtnNames[x].set(rooms[index].format_button_names)
-                formatCmds[x].set(rooms[index].format_button_cmd_num)
+                formatBtnNames[x].set(rooms[index].format_button_names[x])
+                formatCmds[x].set(rooms[index].format_button_cmd_num[x])
 
         value = w.get(index)
         
-        print ('You selected item %d: "%s"' % (index, value))
-       
+        print('You selected item %d: "%s"' % (index, value))
+
+def vsrc_button_click(evt):
+        w = evt.widget
+        index = int(w.curselection()[0])
         
 def remove_button():
-        index = int(listbox.curselection()[0])
+        index = int(roomListBox.curselection()[0])
         print('removed index %d' % (index))
-        listbox.delete(index)
+        roomListBox.delete(index)
         del rooms[index]  # delete class instance
         del room_numbers[index]  # removes by index
         if index > 0:
-                listbox.selection_set(index-1)  # update the listbox selection
+                roomListBox.selection_set(index-1)  # update the roomListBox selection
         else:
-                listbox.selection_set(0)
+                roomListBox.selection_set(0)
         # room_numbers.remove(currentListSelection)#removes by value
 
 
 def update_room(): 
-        index = int(listbox.curselection()[0])
+        index = int(roomListBox.curselection()[0])
         if index >= 0:
-                listbox.delete(index)
+                roomListBox.delete(index)
                 rooms[index].name = roomNameTextField.get()
                 rooms[index].vid_switcher_output_num = vidSwitchTextField.get()
                 rooms[index].has_local_rec = localRX.get()
-                rooms[index].rec_has_vol_fb = localRXVolFb.get()
-                rooms[index].rec_input_command_delay = recInputDelayTextField.get()
-                rooms[index].rec_has_dist_audio = localRXDistAudio.get()
+                if rooms[index].has_local_rec:
+                        rooms[index].rec_has_vol_fb = localRXVolFb.get()
+                        rooms[index].rec_input_command_delay = recInputDelayTextField.get()
+                        rooms[index].rec_has_dist_audio = localRXDistAudio.get()
+                else:
+                        rooms[index].rec_has_vol_fb = 0
+                        rooms[index].rec_has_dist_audio = 0
                 rooms[index].music_zone_number = audioZoneField.get()
                 rooms[index].music_has_vol_fb = audioZoneVolFb.get()
                 rooms[index].vid_vol_through_dist_audio = vidVolDist.get()
@@ -224,9 +306,9 @@ def update_room():
                 else:
                         rooms[index].format_scenario_num = 0
 
-                listbox.insert(index, str(index+1) + " " + rooms[index].name)
+                roomListBox.insert(index, str(index+1) + " " + rooms[index].name)
                 print(rooms[index].name)
-        listbox.selection_set(index)
+        roomListBox.selection_set(index)
 
 
 def print_button_list():
@@ -245,7 +327,7 @@ def print_room_list():
 
 
 def yview(self, *args):
-        apply(listbox.yview, args)
+        apply(roomListBox.yview, args)
         
         
 def local_rx_visible():
@@ -254,15 +336,20 @@ def local_rx_visible():
                 recFrame.grid()
         else:
                 recFrame.grid_remove()
-             
-                
+        frameRight.update_idletasks()
+        vidConfigCanvas.config(scrollregion=vidConfigCanvas.bbox('all'))
+
+
 def lift_visible():
         lift_is_visible = liftVis.get()
+
         if lift_is_visible:
                 liftFrame.grid()
         else:
                 liftFrame.grid_remove()
- 
+        frameRight.update_idletasks()
+        vidConfigCanvas.config(scrollregion=vidConfigCanvas.bbox('all'))
+
                 
 def sleep_visible():
         sleep_is_visible = sleepVis.get()
@@ -270,6 +357,8 @@ def sleep_visible():
                 sleepFrame.grid()
         else:
                 sleepFrame.grid_remove()
+        frameRight.update_idletasks()
+        vidConfigCanvas.config(scrollregion=vidConfigCanvas.bbox('all'))
 
 
 def surround_visible():
@@ -278,6 +367,15 @@ def surround_visible():
                 formatFrame.grid()
         else:
                 formatFrame.grid_remove()
+        frameRight.update_idletasks()
+        vidConfigCanvas.config(scrollregion=vidConfigCanvas.bbox('all'))
+
+
+def canvas_scroll_config(event):
+        frameRight.update_idletasks()
+        vidConfigCanvas.config(scrollregion=vidConfigCanvas.bbox('all'))
+
+
 # END FUNCTION DEFINITIONS #######                
 
 
@@ -286,51 +384,68 @@ root = tk.Tk()
 root.title("ACS Room Video Editor v0.1")
 
 # region FRAMES
-# frame1 top left
-frame1 = tk.Frame(root, width=200, height=300, borderwidth=1, relief="groove")
-frame1.grid(row=0, column=0, sticky=tk.N)
-frameRight = tk.Frame(root, width=300, height=300, borderwidth=1, relief="groove")
-frameRight.grid(row=0, column=1, sticky=tk.N)
+# roomListFrame top left
+vidConfigCanvas = tk.Canvas(root)
+roomListFrame = tk.Frame(root, width=100, height=300, borderwidth=1, relief="groove")
+roomListFrame.grid(row=0, column=0, sticky=tk.N+tk.W, pady=20, padx=20)
+vsrcListFrame = tk.Frame(root, width=100, height=300, borderwidth=1, relief="groove")
+vsrcListFrame.grid(row=1, column=0, sticky=tk.N, pady=20, padx=20)
+frameRight = tk.Frame(vidConfigCanvas, borderwidth=1, relief="groove")
+frameRight.grid(row=0, column=0, sticky=tk.N+tk.S)
 frame2 = tk.Frame(root, width=300, height=300)
-frame2.grid(row=1, column=0)
-recFrame = tk.Frame(frameRight, borderwidth=1, relief="groove")
+frame2.grid(row=2, column=0)
+
+recFrame = tk.Frame(frameRight, borderwidth=3, relief="groove")
 recFrame.grid(row=3, column=0, columnspan=2)
 recFrame.grid_remove()
-liftFrame = tk.Frame(frameRight, borderwidth=1, relief="groove")
+liftFrame = tk.Frame(frameRight, borderwidth=3, relief="groove")
 liftFrame.grid(row=11, column=0, columnspan=2)
 liftFrame.grid_remove()
-sleepFrame = tk.Frame(frameRight, borderwidth=1, relief="groove")
+sleepFrame = tk.Frame(frameRight, borderwidth=3, relief="groove")
 sleepFrame.grid(row=13, column=0, columnspan=2)
 sleepFrame.grid_remove()
-formatFrame = tk.Frame(frameRight, borderwidth=1, relief="groove")
+formatFrame = tk.Frame(frameRight, borderwidth=3, relief="groove")
 formatFrame.grid(row=16, column=0, columnspan=2)
 formatFrame.grid_remove()
 # endregion
 
-# region FRAME1 WIDGETS
-add_room = tk.Button(frame1, text="add a room", width=15, command=add_room_button)
-add_room.pack(pady =20, padx =20)
+# region roomListFrame WIDGETS
+add_room = tk.Button(roomListFrame, text="add a room", width=15, command=add_room_button).grid(row=0, column=0)
 
+# Room roomListBox
+roomListBox = tk.Listbox(roomListFrame, exportselection=0)
+roomListBox.grid(row=1, column=0)
+roomListBox.bind('<<ListboxSelect>>', room_button_click)
+scrollbar = tk.Scrollbar(roomListFrame, orient=tk.VERTICAL, command=roomListBox.yview)
+scrollbar.grid(row=1, column=1, sticky=tk.N+tk.S)
+roomListBox.config(yscrollcommand=scrollbar.set)
 
-listbox = tk.Listbox(frame1, exportselection=0)
-listbox.bind('<<ListboxSelect>>', room_button_click)
-listbox.pack(side=tk.LEFT, fill=tk.Y)
-scrollbar = tk.Scrollbar(frame1, orient=tk.VERTICAL, command=listbox.yview)
-scrollbar.pack(side=tk.RIGHT, fill=tk.Y)
-listbox.config(yscrollcommand=scrollbar.set)
+delete_room = tk.Button(roomListFrame, text="remove room", width=10, command=remove_button).grid(row=2, column=0)
+
+vidConfigCanvas.grid(row=0, column=1, rowspan=2, sticky=tk.N+tk.S+tk.E+tk.W)
+vidConfigScrollBar = tk.Scrollbar(root, orient=tk.VERTICAL, command=vidConfigCanvas.yview)
+vidConfigScrollBar.grid(row=0, column=5, rowspan=2, sticky=tk.N+tk.S)
+vidConfigScrollBar.configure(command=vidConfigCanvas.yview)
+vidConfigCanvas.config(yscrollcommand=vidConfigScrollBar.set, width=750, height=500)
+vidConfigCanvas.bind('<Configure>', canvas_scroll_config)
+vidConfigCanvas.create_window(0, 0, anchor=tk.NW, window=frameRight)
 # endregion
 
 # region FRAME2 WIDGETS LOWER LEFT
-delete_room = tk.Button(frame2, text="remove room", width=10, command=remove_button).grid(row=0, column=1)
-read_xmlButton = tk.Button(frame2, text="read xml", width=7, command=read_xml).grid(row=0, column=0)
-write_xmlButton = tk.Button(frame2, text="write xml", width=7, command=write_xml).grid(row=0, column=2)
+add_vsrc_button = tk.Button(vsrcListFrame, text="add video source").grid(row=0, column=0)
+vsrcListBox = tk.Listbox(vsrcListFrame, exportselection=0)
+vsrcListBox.grid(row=1, column=0)
+vsrcListBox.bind('<<ListboxSelect>>', vsrc_button_click)
+remove_vsrc_button = tk.Button(vsrcListFrame, text="remove video source").grid(row=2, column=0)
+read_xmlButton = tk.Button(frame2, text="read xml", width=7, pady=50, command=read_xml).grid(row=5, column=0)
+write_xmlButton = tk.Button(frame2, text="write xml", width=7, command=write_xml).grid(row=5, column=2)
 # endregion
 
 # region RIGHT FRAME WIDGETS
 roomNameLabel = tk.Label(frameRight, text="Room Name:").grid(row=0, column=0, sticky=tk.E)
 roomNameField = tk.StringVar()
 roomNameTextField = tk.Entry(frameRight, textvariable=roomNameField)
-roomNameTextField.grid(row=0, column=1)
+roomNameTextField.grid(row=0, column=1, sticky=tk.W)
 
 vidSwitchLabel = tk.Label(frameRight, text="Video switcher output number:").grid(row=1, column=0, sticky=tk.E)
 vidSwitchField = tk.StringVar()
@@ -484,13 +599,13 @@ sleepTimesText = []
 for i in range(0, 4):
         sleepBtnName = tk.StringVar()
         sleepBtnNames.append(sleepBtnName)
-        sleepButtonTextField = tk.Entry(sleepFrame, width=8)
+        sleepButtonTextField = tk.Entry(sleepFrame, width=8, textvariable=sleepBtnNames[i])
         sleepNamesText.append(sleepButtonTextField)
         sleepNamesText[i].grid(row=i+4, column=1, sticky=tk.W)
 
         sleepTime = tk.StringVar()
         sleepTimes.append(sleepTime)
-        sleepTimeTextField = tk.Entry(sleepFrame, width=3)
+        sleepTimeTextField = tk.Entry(sleepFrame, width=3, textvariable=sleepTimes[i])
         sleepTimesText.append(sleepTimeTextField)
         sleepTimesText[i].grid(row=i+4, column=2, sticky=tk.W)
 # endregion
@@ -526,13 +641,13 @@ formatBtnNamesText = []
 for i in range(0, 4):
         formatCmd = tk.StringVar()
         formatCmds.append(formatCmd)
-        formatCmdsTextField = tk.Entry(formatFrame, width=2)
+        formatCmdsTextField = tk.Entry(formatFrame, width=2, textvariable=formatCmds[i])
         formatCmdsText.append(formatCmdsTextField)
         formatCmdsText[i].grid(row=i+4, column=1, sticky=tk.W)
 
         formatBtnName = tk.StringVar()
         formatBtnNames.append(formatBtnName)
-        formatButtonTextField = tk.Entry(formatFrame, width=8)
+        formatButtonTextField = tk.Entry(formatFrame, width=8, textvariable=formatBtnNames[i])
         formatBtnNamesText.append(formatButtonTextField)
         formatBtnNamesText[i].grid(row=i+4, column=2, sticky=tk.W)
 # endregion
