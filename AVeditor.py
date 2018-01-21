@@ -159,12 +159,6 @@ def read_xml():
                 video_sources[ii].flips_to_page_num = vidSrc.get('flipsToPageNumber')
                 video_sources[ii].equip_xpoint_id = vidSrc.get('xpointID')
                 ii += 1
-
-        
-        # lists = filter(lambda x: 'Room' in x.get('name'), rooms.findall(".//room[@name]"))
-        # print(lists)
-        # for room in rooms:
-                # print(room.tag, room.attrib)#tag is just the element name
         
         
 def write_xml():  # TO DO - make file path from read persistent and check for empty string
@@ -277,6 +271,7 @@ def room_button_click(evt):
         vidVolDist.set(rooms[index].vid_vol_through_dist_audio)
         displayInputCmdDelay.set(rooms[index].display_input_delay)
         displayVol.set(rooms[index].display_has_vol_fb)
+        # LIFT
         if int(rooms[index].lift_scenario_num) > 0:
                 liftVis.set(1)
         else:
@@ -289,7 +284,7 @@ def room_button_click(evt):
                 liftBtnCmds[x].set(rooms[index].lift_button_cmd_num[x])
                 liftBtnNames[x].set(rooms[index].lift_button_names[x])
                 liftBtnTimes[x].set(rooms[index].lift_pulse_times[x])
-
+        # SLEEP
         if int(rooms[index].sleep_scenario_num) > 0:
                 sleepVis.set(1)
         else:
@@ -300,7 +295,7 @@ def room_button_click(evt):
         for x in range(0, 4):
                 sleepBtnNames[x].set(rooms[index].sleep_button_names[x])
                 sleepTimes[x].set(rooms[index].sleep_button_lengths[x])
-
+        # SURROUND
         if int(rooms[index].format_scenario_num) > 0:
                 formatVis.set(1)
         else:
@@ -311,6 +306,8 @@ def room_button_click(evt):
         for x in range(0, 4):
                 formatBtnNames[x].set(rooms[index].format_button_names[x])
                 formatCmds[x].set(rooms[index].format_button_cmd_num[x])
+        # VIDEO SOURCES
+
 
         value = w.get(index)
         

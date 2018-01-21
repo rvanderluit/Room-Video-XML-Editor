@@ -1,13 +1,13 @@
 <ROOT>
 	<rooms>
-		<room number="1" name="ROOM 1">
-			<configuration subSystemScenarioNum="1" videoSwitcherOutputNum="43" numberOfSRCSperPage="6" sendToSpeakers="0">
-				<receiver hasReceiver="1" receiverHasVolFB="1" receiverInputDelay="433" musicThroughReceiver="1"/>
-				<music musicZoneNum="333" musicHasVolFB="1" videoVolThroughDistAudio="1"/>
-				<display displayInputDelay="53" tvHasVolFB="1"/>
+		<room number="1" name="RM 1">
+			<configuration subSystemScenarioNum="1" videoSwitcherOutputNum="0" numberOfSRCSperPage="6" sendToSpeakers="0">
+				<receiver hasReceiver="0" receiverHasVolFB="0" receiverInputDelay="433" musicThroughReceiver="0"/>
+				<music musicZoneNum="0" musicHasVolFB="0" videoVolThroughDistAudio="0"/>
+				<display displayInputDelay="0" tvHasVolFB="0"/>
 			</configuration>
 			<!-- btnToCmd routes button# press to command# press, ie button 3 pulses command 2. -->
-			<lift liftScenarioNum="433" openWithOnCmdNum="13" closeWithOffCmdNum="1">
+			<lift liftScenarioNum="0" openWithOnCmdNum="13" closeWithOffCmdNum="1">
 				<liftButton cmdNum="11" Name=" Uap" pulseTime="3"/>
 				<liftButton cmdNum="21" Name="Doawn" pulseTime="1"/>
 				<liftButton cmdNum="31" Name=" Laeft" pulseTime="1"/>
@@ -15,18 +15,18 @@
 				<liftButton cmdNum="51" Name="AHaHH" pulseTime="1"/>
 			</lift>
 			<!-- use only increments of 1 minute up to 90!!! -->
-			<sleep sleepScenarioNum="433" sleepButtonText="9666m ">
+			<sleep sleepScenarioNum="0" sleepButtonText="9666m ">
 				<sleepButton Name=" 15M" length="15"/>
 				<sleepButton Name="6660m" length="30"/>
 				<sleepButton Name="92m" length="2"/>
 				<sleepButton Name="9666m " length="m6m"/>
 			</sleep>
 			<!-- these buttons are generic and can be used for surround modes or screen size etc. up to 10 available -->
-			<format formatScenarioNum="2" formatButtonText="forMat">
+			<format formatScenarioNum="0" formatButtonText="forMat">
 				<formatButton cmdNum="1" Name="Suoknd"/>
-				<formatButton cmdNum="1" Name="Suoknd"/>
-				<formatButton cmdNum="1" Name="Suoknd"/>
-				<formatButton cmdNum="1" Name="Suoknd"/>
+				<formatButton cmdNum="2" Name="4r"/>
+				<formatButton cmdNum="0" Name=" "/>
+				<formatButton cmdNum="0" Name=" "/>
 			</format>
 			<videoSources>
 				<vidSrc number="1" displayInputNumber="1" receiverInputNumber="2" altSwitcherInputNumber="0"/>
@@ -43,7 +43,7 @@
 				<musicSrc number="5" receiverInputNumber="5"/>
 			</musicSources>
 		</room>
-		<room number="2" name="Room 2">
+		<room number="2" name="RM 2">
 			<configuration subSystemScenarioNum="1" videoSwitcherOutputNum="2" numberOfSRCSperPage="6" sendToSpeakers="0">
 				<receiver hasReceiver="1" receiverHasVolFB="1" receiverInputDelay="2" musicThroughReceiver="1"/>
 				<music musicZoneNum="2" musicHasVolFB="1" videoVolThroughDistAudio="1"/>
@@ -56,7 +56,7 @@
 				<liftButton cmdNum="4" Name="Right" pulseTime="15"/>
 				<liftButton cmdNum="5" Name="Stop" pulseTime="1"/>
 			</lift>
-			<sleep sleepScenarioNum="0" sleepButtonText="Sleep">
+			<sleep sleepScenarioNum="0" sleepButtonText="90m">
 				<sleepButton Name="5m" length="5"/>
 				<sleepButton Name="10m" length="10"/>
 				<sleepButton Name="15m" length="15"/>
@@ -64,10 +64,10 @@
 			</sleep>
 			<!-- these buttons are generic and can be used for surround modes or screen size etc. up to 10 available -->
 			<format formatScenarioNum="1" formatButtonText="Format">
-				<formatButton cmdNum="1" Name="Dolby"/>
-				<formatButton cmdNum="2" Name="2 Ch Stereo"/>
-				<formatButton cmdNum="5" Name="All Ch Stereo"/>
 				<formatButton cmdNum="6" Name="DTS"/>
+				<formatButton cmdNum="6" Name=" ge"/>
+				<formatButton cmdNum="0" Name=" "/>
+				<formatButton cmdNum="0" Name=" "/>
 			</format>
 			<videoSources>
 				<vidSrc number="1" displayInputNumber="1" receiverInputNumber="2" altSwitcherInputNumber="0"/>
@@ -84,30 +84,30 @@
 				<musicSrc number="5" receiverInputNumber="5"/>
 			</musicSources>
 		</room>
-		<room number="3" name="Room 3">
+		<room number="3" name="RM_3">
 			<configuration subSystemScenarioNum="1" videoSwitcherOutputNum="3" numberOfSRCSperPage="6" sendToSpeakers="0">
-				<receiver hasReceiver="0" receiverHasVolFB="1" receiverInputDelay="2" musicThroughReceiver="1"/>
-				<music musicZoneNum="1" musicHasVolFB="0" videoVolThroughDistAudio="0"/>
-				<display displayInputDelay="8" tvHasVolFB="0"/>
+				<receiver hasReceiver="1" receiverHasVolFB="1" receiverInputDelay="3" musicThroughReceiver="1"/>
+				<music musicZoneNum="3" musicHasVolFB="1" videoVolThroughDistAudio="1"/>
+				<display displayInputDelay="3" tvHasVolFB="1"/>
 			</configuration>
-			<lift liftScenarioNum="0" openWithOnCmdNum="1" closeWithOffCmdNum="2">
-				<liftButton cmdNum="1" Name="Up" pulseTime="1"/>
-				<liftButton cmdNum="2" Name="Down" pulseTime="1"/>
-				<liftButton cmdNum="3" Name="Left" pulseTime="10"/>
-				<liftButton cmdNum="4" Name="Right" pulseTime="15"/>
+			<lift liftScenarioNum="3" openWithOnCmdNum="3" closeWithOffCmdNum="3">
+				<liftButton cmdNum="5" Name="Up" pulseTime="5"/>
+				<liftButton cmdNum="4" Name="Down" pulseTime="4"/>
+				<liftButton cmdNum="3" Name="Left" pulseTime="3"/>
+				<liftButton cmdNum="2" Name="Right" pulseTime="2"/>
 			</lift>
-			<sleep sleepScenarioNum="0" sleepButtonText="Sleep">
-				<sleepButton Name="15m" length="15"/>
-				<sleepButton Name="30m" length="30"/>
-				<sleepButton Name="60m" length="60"/>
-				<sleepButton Name="90m" length="90"/>
+			<sleep sleepScenarioNum="3" sleepButtonText="90m3">
+				<sleepButton Name="15m3" length="153"/>
+				<sleepButton Name="30m3" length="303"/>
+				<sleepButton Name="60m3" length="603"/>
+				<sleepButton Name="90m3" length="903"/>
 			</sleep>
 			<!-- these buttons are generic and can be used for surround modes or screen size etc. up to 10 available -->
-			<format formatScenarioNum="0" formatButtonText="Format">
-				<formatButton cmdNum="1" Name="Dolby"/>
-				<formatButton cmdNum="2" Name="2 Ch Stereo"/>
-				<formatButton cmdNum="5" Name="All Ch Stereo"/>
-				<formatButton cmdNum="6" Name="DTS"/>
+			<format formatScenarioNum="3" formatButtonText="Format3">
+				<formatButton cmdNum="63" Name="DTS3"/>
+				<formatButton cmdNum="3" Name="Surrnd"/>
+				<formatButton cmdNum="1" Name="Ster"/>
+				<formatButton cmdNum="2" Name="ALL"/>
 			</format>
 			<videoSources>
 				<vidSrc number="1" displayInputNumber="1" receiverInputNumber="2" altSwitcherInputNumber="0"/>
@@ -136,7 +136,7 @@
 				<liftButton cmdNum="3" Name="Left" pulseTime="10"/>
 				<liftButton cmdNum="4" Name="Right" pulseTime="15"/>
 			</lift>
-			<sleep sleepScenarioNum="1" sleepButtonText="Sleep">
+			<sleep sleepScenarioNum="1" sleepButtonText="90m">
 				<sleepButton Name="15m" length="15"/>
 				<sleepButton Name="30m" length="30"/>
 				<sleepButton Name="60m" length="60"/>
@@ -144,10 +144,10 @@
 			</sleep>
 			<!-- these buttons are generic and can be used for surround modes or screen size etc. up to 10 available -->
 			<format formatScenarioNum="1" formatButtonText="Format">
-				<formatButton cmdNum="1" Name="Dolby"/>
-				<formatButton cmdNum="2" Name="2 Ch Stereo"/>
-				<formatButton cmdNum="5" Name="All Ch Stereo"/>
-				<formatButton cmdNum="6" Name="DTS"/>
+				<formatButton cmdNum="6" Name="Stereo"/>
+				<formatButton cmdNum="4" Name="All Ch."/>
+				<formatButton cmdNum="1" Name="Surround"/>
+				<formatButton cmdNum="2" Name="Dolby"/>
 			</format>
 			<videoSources>
 				<vidSrc number="1" displayInputNumber="1" receiverInputNumber="2" altSwitcherInputNumber="0"/>
@@ -183,10 +183,10 @@
 			</sleep>
 			<!-- these buttons are generic and can be used for surround modes or screen size etc. up to 10 available -->
 			<format formatScenarioNum="0" formatButtonText="Format">
-				<formatButton cmdNum="1" Name="Dolby"/>
-				<formatButton cmdNum="2" Name="2 Ch Stereo"/>
-				<formatButton cmdNum="5" Name="All Ch Stereo"/>
 				<formatButton cmdNum="6" Name="DTS"/>
+				<formatButton cmdNum="0" Name=" "/>
+				<formatButton cmdNum="0" Name=" "/>
+				<formatButton cmdNum="0" Name=" "/>
 			</format>
 			<videoSources>
 				<vidSrc number="1" displayInputNumber="1" receiverInputNumber="2" altSwitcherInputNumber="0"/>
@@ -223,10 +223,10 @@
 			</sleep>
 			<!-- these buttons are generic and can be used for surround modes or screen size etc. up to 10 available -->
 			<format formatScenarioNum="0" formatButtonText="Format">
-				<formatButton cmdNum="1" Name="Dolby"/>
-				<formatButton cmdNum="2" Name="2 Ch Stereo"/>
-				<formatButton cmdNum="5" Name="All Ch Stereo"/>
 				<formatButton cmdNum="6" Name="DTS"/>
+				<formatButton cmdNum="0" Name=" "/>
+				<formatButton cmdNum="0" Name=" "/>
+				<formatButton cmdNum="0" Name=" "/>
 			</format>
 			<videoSources>
 				<vidSrc number="1" displayInputNumber="1" receiverInputNumber="2" altSwitcherInputNumber="0"/>
@@ -263,10 +263,10 @@
 			</sleep>
 			<!-- these buttons are generic and can be used for surround modes or screen size etc. up to 10 available -->
 			<format formatScenarioNum="0" formatButtonText="Format">
-				<formatButton cmdNum="1" Name="Dolby"/>
-				<formatButton cmdNum="2" Name="2 Ch Stereo"/>
-				<formatButton cmdNum="5" Name="All Ch Stereo"/>
 				<formatButton cmdNum="6" Name="DTS"/>
+				<formatButton cmdNum="0" Name=" "/>
+				<formatButton cmdNum="0" Name=" "/>
+				<formatButton cmdNum="0" Name=" "/>
 			</format>
 			<videoSources>
 				<vidSrc number="1" displayInputNumber="1" receiverInputNumber="2" altSwitcherInputNumber="0"/>
@@ -303,10 +303,10 @@
 			</sleep>
 			<!-- these buttons are generic and can be used for surround modes or screen size etc. up to 10 available -->
 			<format formatScenarioNum="0" formatButtonText="Format">
-				<formatButton cmdNum="1" Name="Dolby"/>
-				<formatButton cmdNum="2" Name="2 Ch Stereo"/>
-				<formatButton cmdNum="5" Name="All Ch Stereo"/>
 				<formatButton cmdNum="6" Name="DTS"/>
+				<formatButton cmdNum="0" Name=" "/>
+				<formatButton cmdNum="0" Name=" "/>
+				<formatButton cmdNum="0" Name=" "/>
 			</format>
 			<videoSources>
 				<vidSrc number="1" displayInputNumber="1" receiverInputNumber="2" altSwitcherInputNumber="0"/>
@@ -343,10 +343,10 @@
 			</sleep>
 			<!-- these buttons are generic and can be used for surround modes or screen size etc. up to 10 available -->
 			<format formatScenarioNum="0" formatButtonText="Format">
-				<formatButton cmdNum="1" Name="Dolby"/>
-				<formatButton cmdNum="2" Name="2 Ch Stereo"/>
-				<formatButton cmdNum="5" Name="All Ch Stereo"/>
 				<formatButton cmdNum="6" Name="DTS"/>
+				<formatButton cmdNum="0" Name=" "/>
+				<formatButton cmdNum="0" Name=" "/>
+				<formatButton cmdNum="0" Name=" "/>
 			</format>
 			<videoSources>
 				<vidSrc number="1" displayInputNumber="1" receiverInputNumber="2" altSwitcherInputNumber="0"/>
@@ -383,10 +383,10 @@
 			</sleep>
 			<!-- these buttons are generic and can be used for surround modes or screen size etc. up to 10 available -->
 			<format formatScenarioNum="2" formatButtonText="Format">
-				<formatButton cmdNum="1" Name="Dolby"/>
-				<formatButton cmdNum="2" Name="2 Ch Stereo"/>
-				<formatButton cmdNum="5" Name="All Ch Stereo"/>
 				<formatButton cmdNum="6" Name="DTS"/>
+				<formatButton cmdNum="0" Name=" "/>
+				<formatButton cmdNum="0" Name=" "/>
+				<formatButton cmdNum="0" Name=" "/>
 			</format>
 			<videoSources>
 				<vidSrc number="1" displayInputNumber="1" receiverInputNumber="2" altSwitcherInputNumber="0"/>
@@ -423,10 +423,10 @@
 			</sleep>
 			<!-- these buttons are generic and can be used for surround modes or screen size etc. up to 10 available -->
 			<format formatScenarioNum="1" formatButtonText="Format">
-				<formatButton cmdNum="1" Name="Dolby"/>
-				<formatButton cmdNum="2" Name="2 Ch Stereo"/>
-				<formatButton cmdNum="5" Name="All Ch Stereo"/>
 				<formatButton cmdNum="6" Name="DTS"/>
+				<formatButton cmdNum="0" Name=" "/>
+				<formatButton cmdNum="0" Name=" "/>
+				<formatButton cmdNum="0" Name=" "/>
 			</format>
 			<videoSources>
 				<vidSrc number="1" displayInputNumber="1" receiverInputNumber="2" altSwitcherInputNumber="0"/>
@@ -463,10 +463,10 @@
 			</sleep>
 			<!-- these buttons are generic and can be used for surround modes or screen size etc. up to 10 available -->
 			<format formatScenarioNum="1" formatButtonText="Format">
-				<formatButton cmdNum="1" Name="Dolby"/>
-				<formatButton cmdNum="2" Name="2 Ch Stereo"/>
-				<formatButton cmdNum="5" Name="All Ch Stereo"/>
 				<formatButton cmdNum="6" Name="DTS"/>
+				<formatButton cmdNum="0" Name=" "/>
+				<formatButton cmdNum="0" Name=" "/>
+				<formatButton cmdNum="0" Name=" "/>
 			</format>
 			<videoSources>
 				<vidSrc number="1" displayInputNumber="1" receiverInputNumber="2" altSwitcherInputNumber="0"/>
@@ -503,10 +503,10 @@
 			</sleep>
 			<!-- these buttons are generic and can be used for surround modes or screen size etc. up to 10 available -->
 			<format formatScenarioNum="1" formatButtonText="Format">
-				<formatButton cmdNum="1" Name="Dolby"/>
-				<formatButton cmdNum="2" Name="2 Ch Stereo"/>
-				<formatButton cmdNum="5" Name="All Ch Stereo"/>
 				<formatButton cmdNum="6" Name="DTS"/>
+				<formatButton cmdNum="0" Name=" "/>
+				<formatButton cmdNum="0" Name=" "/>
+				<formatButton cmdNum="0" Name=" "/>
 			</format>
 			<videoSources>
 				<vidSrc number="1" displayInputNumber="1" receiverInputNumber="2" altSwitcherInputNumber="0"/>
@@ -543,10 +543,10 @@
 			</sleep>
 			<!-- these buttons are generic and can be used for surround modes or screen size etc. up to 10 available -->
 			<format formatScenarioNum="1" formatButtonText="Format">
-				<formatButton cmdNum="1" Name="Dolby"/>
-				<formatButton cmdNum="2" Name="2 Ch Stereo"/>
-				<formatButton cmdNum="5" Name="All Ch Stereo"/>
 				<formatButton cmdNum="6" Name="DTS"/>
+				<formatButton cmdNum="0" Name=" "/>
+				<formatButton cmdNum="0" Name=" "/>
+				<formatButton cmdNum="0" Name=" "/>
 			</format>
 			<videoSources>
 				<vidSrc number="1" displayInputNumber="1" receiverInputNumber="2" altSwitcherInputNumber="0"/>
@@ -583,10 +583,10 @@
 			</sleep>
 			<!-- these buttons are generic and can be used for surround modes or screen size etc. up to 10 available -->
 			<format formatScenarioNum="1" formatButtonText="Format">
-				<formatButton cmdNum="1" Name="Dolby"/>
-				<formatButton cmdNum="2" Name="2 Ch Stereo"/>
-				<formatButton cmdNum="5" Name="All Ch Stereo"/>
 				<formatButton cmdNum="6" Name="DTS"/>
+				<formatButton cmdNum="0" Name=" "/>
+				<formatButton cmdNum="0" Name=" "/>
+				<formatButton cmdNum="0" Name=" "/>
 			</format>
 			<videoSources>
 				<vidSrc number="1" displayInputNumber="1" receiverInputNumber="2" altSwitcherInputNumber="0"/>
@@ -623,10 +623,10 @@
 			</sleep>
 			<!-- these buttons are generic and can be used for surround modes or screen size etc. up to 10 available -->
 			<format formatScenarioNum="1" formatButtonText="Format">
-				<formatButton cmdNum="1" Name="Dolby"/>
-				<formatButton cmdNum="2" Name="2 Ch Stereo"/>
-				<formatButton cmdNum="5" Name="All Ch Stereo"/>
 				<formatButton cmdNum="6" Name="DTS"/>
+				<formatButton cmdNum="0" Name=" "/>
+				<formatButton cmdNum="0" Name=" "/>
+				<formatButton cmdNum="0" Name=" "/>
 			</format>
 			<videoSources>
 				<vidSrc number="1" displayInputNumber="1" receiverInputNumber="2" altSwitcherInputNumber="0"/>
