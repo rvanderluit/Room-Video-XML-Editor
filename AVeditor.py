@@ -15,7 +15,7 @@ video_sources = []  # video source class objects
 
 # TO DO - make the main window scroll not just by holding the scrollbar and dragging. the area is incorrect
 # TO DO - selecting 'edit video sources' should resize the window, the scrollbar doesn't update
-# TO DO - if you delete a system video source, it should update the sources available per room
+# TO DO - make the write xml function adjust the number of rooms the way it adjusts the number of video sources
 
 class Room:
         def __init__(self):
@@ -57,6 +57,7 @@ class Room:
 class VideoSource:
         def __init__(self):
                 self.name = ""
+                self.display_name = ""
                 self.number = 0
                 self.video_switcher_input_num = 0
                 self.audio_switcher_input_num = 0
@@ -171,15 +172,16 @@ def read_xml():
                 if ii+1 not in video_source_numbers:
                         video_sources.insert(ii, VideoSource())
                         video_source_numbers.insert(ii, ii+1)
-                        vsrcListBox.insert(ii, str(ii+1) + " " + vidSrc.get('Name'))
-                        systemVidSrcListBox.insert(ii, str(ii+1) + " " + vidSrc.get('Name'))
+                        vsrcListBox.insert(ii, str(ii+1) + " " + vidSrc.get('name'))
+                        systemVidSrcListBox.insert(ii, str(ii+1) + " " + vidSrc.get('name'))
                 else:
                         vsrcListBox.delete(ii)
                         systemVidSrcListBox.delete(ii)
-                        vsrcListBox.insert(ii, str(ii + 1) + " " + vidSrc.get('Name'))
-                        systemVidSrcListBox.insert(ii, str(ii + 1) + " " + vidSrc.get('Name'))
+                        vsrcListBox.insert(ii, str(ii + 1) + " " + vidSrc.get('name'))
+                        systemVidSrcListBox.insert(ii, str(ii + 1) + " " + vidSrc.get('name'))
                 video_sources[ii].number = vidSrc.get('number')
-                video_sources[ii].name = vidSrc.get('Name')
+                video_sources[ii].name = vidSrc.get('name')
+                video_sources[ii].display_name = vidSrc.get('displayName')
                 video_sources[ii].video_switcher_input_num = vidSrc.get('vidSwitcherInputNumber')
                 video_sources[ii].audio_switcher_input_num = vidSrc.get('audSwitcherInputNumber')
                 video_sources[ii].icon_serial_name = vidSrc.get('iconSerial')
@@ -253,38 +255,45 @@ def write_xml():  # TO DO - make file path from read persistent and check for em
                 # ROOM VIDEO SOURCES ###
                 x = 0
                 room_vid_sources = room.find('videoSources')
-                # need to add or remove excess vid sources in old xml file
-                number_of_vid_srcs = len(rooms[index].video_sources)  # get the number of video sources in this room
-                # for i in range(0, number_of_vid_srcs):
+                number_of_vid_srcs_in_room = len(rooms[index].video_sources)  # get the number of video sources in this room
+
+                for room_vsrc in room_vid_sources:  # clear out all the existing vid source elements
+                    room_vsrc.getparent().remove(room_vsrc)
+
+                vsrc_element_text = '<vidSrc number="0" displayInputNumber="0" receiverInputNumber="0" altSwitcherInputNumber="0"/>'
+
+                for x in range(0, number_of_vid_srcs_in_room):  # add in the correct number of elements from template
+                    room_vid_sources.append(etree.fromstring(vsrc_element_text))
+
                 x = 0
-                for room_vsrc in room_vid_sources:
-                        #room_vsrc = room.find('vidSrc')  # FIX THIS!!!!
-                        room_vsrc.set('number', rooms[index].video_sources[x])
-                        room_vsrc.set('displayInputNumber', rooms[index].video_source_display_inputs[x])
-                        room_vsrc.set('receiverInputNumber', rooms[index].video_source_receiver_inputs[x])
-                        room_vsrc.set('altSwitcherInputNumber', rooms[index].video_source_alt_switcher_inputs[x])
-                        x += 1
+                for room_vsrc in room_vid_sources:  # set the xml attributes with info from program
+                    room_vsrc.set('number', str(rooms[index].video_sources[x]))
+                    room_vsrc.set('displayInputNumber', rooms[index].video_source_display_inputs[x])
+                    room_vsrc.set('receiverInputNumber', rooms[index].video_source_receiver_inputs[x])
+                    room_vsrc.set('altSwitcherInputNumber', rooms[index].video_source_alt_switcher_inputs[x])
+                    x += 1
+
                 index += 1  # next room
+
+        # SYSTEM VIDEO SOURCES
         vidSrcs = root.find('videoSrcs')  # move to vid srcs
-        numVidProg = len(video_sources)  # number of vid srcs in program
+        number_of_vid_srcs_in_program = len(video_sources)  # number of vid srcs in program
 
-        # vidSrc = vidSrcs.find('vidSrc')
-
-        for SRC in vidSrcs:  # clear out all the children elements
+        for SRC in vidSrcs:  # clear out all the existing children elements
                 SRC.getparent().remove(SRC)
 
         element_text = '<vidSrc number = "3" Name = "DVR1" iconSerial="DVR Alt" analogModeNumber ="1" ' \
                        'vidSwitcherInputNumber="5" audSwitcherInputNumber="0" flipsToPageNumber = "1" ' \
                        'xpointID = "101" />'
 
-        for x in range(0, numVidProg):  # add the correct number of elements using template
+        for x in range(0, number_of_vid_srcs_in_program):  # add the correct number of elements using template
                 vidSrcs.append(etree.fromstring(element_text))
-                # vidSrc.set('Name', video_sources[x].name)
 
         srcIdx = 0
-        for vidSrc in vidSrcs:
+        for vidSrc in vidSrcs:  # set the xml attributes with the correct info
                 vidSrc.set('number', video_sources[srcIdx].number)
-                vidSrc.set('Name', video_sources[srcIdx].name)
+                vidSrc.set('name', video_sources[srcIdx].name)
+                vidSrc.set('displayName', video_sources[srcIdx].display_name)
                 vidSrc.set('vidSwitcherInputNumber', video_sources[srcIdx].video_switcher_input_num)
                 vidSrc.set('audSwitcherInputNumber', video_sources[srcIdx].audio_switcher_input_num)
                 vidSrc.set('iconSerial', video_sources[srcIdx].icon_serial_name)
@@ -318,6 +327,7 @@ def add_video_source():  # add to system
         video_sources.insert(video_source_number-1, VideoSource())
         video_sources[video_source_number-1].number = video_source_number
         print('vid srcs %s' % video_source_numbers)
+
 
 def room_button_click(evt):
         global currentRoomIndex
@@ -371,33 +381,49 @@ def room_button_click(evt):
                 formatBtnNames[x].set(rooms[currentRoomIndex].format_button_names[x])
                 formatCmds[x].set(rooms[currentRoomIndex].format_button_cmd_num[x])
         # VIDEO SOURCES
-        roomCurrentVidListBox.delete(0, tk.END)
-        global tempVidSources
-        tempVidSources = []  # clear the list
-        for x in range(0, len(rooms[currentRoomIndex].video_sources)):  # pull all the video sources from the current room
-                tempVidSources.insert(x, RoomVidSourceTemp())  # add a class object for the source parameters per room
-                src_num = int(rooms[currentRoomIndex].video_sources[x])  # source number
-                tempVidSources[x].source = src_num
-                tempVidSources[x].display_input = rooms[currentRoomIndex].video_source_display_inputs[x]
-                tempVidSources[x].receiver_input = rooms[currentRoomIndex].video_source_receiver_inputs[x]
-                tempVidSources[x].alt_switcher_input = rooms[currentRoomIndex].video_source_alt_switcher_inputs[x]
-                roomCurrentVidListBox.insert(tk.END, str(src_num) + " " + video_sources[src_num-1].name)  # populate listbox with number, space, name
+        update_srcs_in_room_listbox()
+
         value = w.get(currentRoomIndex)
         print('You selected item %d: "%s"' % (currentRoomIndex, value))
 
 
+def update_srcs_in_room_listbox():
+    global currentRoomIndex
+    global tempVidSources
+    roomCurrentVidListBox.delete(0, tk.END)  # clear out the list box
+    tempVidSources = []  # clear the list
+    print(rooms[currentRoomIndex].video_sources)
+    for x in range(0, len(rooms[currentRoomIndex].video_sources)):  # pull all the video sources from the current room
+        print('x %d' % x)
+        tempVidSources.insert(x, RoomVidSourceTemp())  # add a class object for the source parameters per room
+        src_num = int(rooms[currentRoomIndex].video_sources[x])  # source number
+        print('src num %d' % src_num)
+        tempVidSources[x].source = src_num
+        tempVidSources[x].display_input = rooms[currentRoomIndex].video_source_display_inputs[x]
+        tempVidSources[x].receiver_input = rooms[currentRoomIndex].video_source_receiver_inputs[x]
+        tempVidSources[x].alt_switcher_input = rooms[currentRoomIndex].video_source_alt_switcher_inputs[x]
+        src_idx = video_source_numbers.index(src_num)  # get index of source in video_source_numbers
+        roomCurrentVidListBox.insert(tk.END, str(src_num) + " " + video_sources[
+            src_idx].name)  # populate listbox with number, space, name
+
+
 def vsrc_button_click(evt):  # on 'edit video sources' menu listbox
-        w = evt.widget
-        index = int(w.curselection()[0])
-        vsrcNameField.set(video_sources[index].name)
-        vidSwitchInputField.set(video_sources[index].video_switcher_input_num)
-        audSwitchInputField.set(video_sources[index].audio_switcher_input_num)
-        vsrcSerialIconField.set(video_sources[index].icon_serial_name)
-        vsrcAnalogModeField.set(video_sources[index].analog_mode_num)
-        vsrcFlipsToPageField.set(video_sources[index].flips_to_page_num)
-        vsrcXPointIDField.set(video_sources[index].equip_xpoint_id)
-        print(video_sources[index].name)
-        print(index)
+    w = evt.widget
+    index = int(w.curselection()[0])
+    update_system_vsrc_text_fields(index)
+
+
+def update_system_vsrc_text_fields(index):
+    vsrcNameField.set(video_sources[index].name)
+    vsrcDisplayNameField.set(video_sources[index].display_name)
+    vidSwitchInputField.set(video_sources[index].video_switcher_input_num)
+    audSwitchInputField.set(video_sources[index].audio_switcher_input_num)
+    vsrcSerialIconField.set(video_sources[index].icon_serial_name)
+    vsrcAnalogModeField.set(video_sources[index].analog_mode_num)
+    vsrcFlipsToPageField.set(video_sources[index].flips_to_page_num)
+    vsrcXPointIDField.set(video_sources[index].equip_xpoint_id)
+    print(video_sources[index].name)
+    print(index)
 
 
 def vsrc_to_add_button_click(evt):  # UNUSED
@@ -426,9 +452,8 @@ def remove_room():
 
 
 def remove_vid_source_from_sys():
-        # removes video source from system
-        # TO DO - remove from rooms when deleted!!! or update source numbers!!!
-        # TO DO - make the list number update in the listbox text
+        # removes video source from system and updates the room sources accordingly
+
         index = int(vsrcListBox.curselection()[0])  # source to remove
         source_number_to_remove = video_sources[index].number  # get the source number not index
         global currentRoomIndex
@@ -440,24 +465,26 @@ def remove_vid_source_from_sys():
         del video_source_numbers[index]
 
         print('video sources %s' % video_source_numbers)
-        print('current room index %s' % currentRoomIndex)
-        print(tempVidSources[currentRoomIndex])
-        # del tempVidSources[index]
-
         print('source number to remove %s' % source_number_to_remove)
 
-        # CONTINUE HERE!!!!
         for i in range(0, len(rooms)):  # go through all rooms
-                for j in range(0, len(rooms[i].video_sources)):  # go through all sources in the room
-                        rooms[i].video_sources[j].remove(source_number_to_remove)  # remove source by value
-                print(rooms[i].video_sources)
+            print(rooms[i].video_sources)
+            try:
+                rooms[i].video_sources.remove(source_number_to_remove)  # remove source by value
+            except ValueError:
+                print('source %s not in room %d' % (source_number_to_remove, i))
+            print(rooms[i].video_sources)
 
         if index > 0:  # update cursor position
-                vsrcListBox.selection_set(index-1)
+                vsrcListBox.selection_set(index-1)  # select previous source
                 systemVidSrcListBox.selection_set(index-1)
+                update_system_vsrc_text_fields(index-1)  # update the text fields
         else:
-                vsrcListBox.selection_set(0)
+                vsrcListBox.selection_set(0)  # select top of list
                 systemVidSrcListBox.selection_set(0)
+                update_system_vsrc_text_fields(0)  # update the text fields
+
+        update_srcs_in_room_listbox()  # update the sources in the room sources listbox
 
 
 def update_room():
@@ -533,6 +560,7 @@ def update_video_source():  # this updates system video sources on 'edit video s
                 systemVidSrcListBox.delete(index)
                 video_sources[index].number = str(index+1)
                 video_sources[index].name = vsrcNameTextField.get()
+                video_sources[index].display_name = vsrcDisplayNameTextField.get()
                 video_sources[index].video_switcher_input_num = vidSwitchInputTextField.get()
                 video_sources[index].audio_switcher_input_num = audSwitchInputTextField.get()
                 video_sources[index].icon_serial_name = vsrcSerialIconTextField.get()
@@ -677,6 +705,22 @@ def vsrcAltInputChanged(event):
         tempVidSources[index].alt_switcher_input = event.char
 
 
+def tab_switch(event):
+    index = event.widget.index("@%d,%d" % (event.x, event.y))
+    print(event.widget.tab(index, "text"))
+    title = event.widget.tab(index, "text")
+    frameRight.update_idletasks()
+    roomConfigCanvas.update_idletasks()
+    roomConfigCanvas.config(scrollregion=roomConfigCanvas.bbox('all'))
+    # if title == "edit rooms":
+    #    roomConfigScrollBar.grid(row=0, column=5, rowspan=2, sticky=tk.N + tk.S)
+    # if title == "edit video sources" or "help":
+    #    roomConfigScrollBar.grid_remove()
+
+
+# def on_mousewheel(event):
+#    roomConfigCanvas.yview_scroll(-1*(event.delta/120), "units")
+
 # endregion
 
 
@@ -698,6 +742,7 @@ videoSrcTab = tk.ttk.Frame(nb)  # TO DO!!!!! RESIZE CANVAS WHEN THIS IS SELECTED
 nb.add(videoSrcTab, text='edit video sources')
 helpTab = tk.ttk.Frame(nb)
 nb.add(helpTab, text='help')
+nb.bind("<Button-1>", tab_switch)
 # endregion T
 
 # region FRAMES
@@ -749,11 +794,12 @@ roomListBox.grid(row=1, column=0, columnspan=2)
 roomListBox.bind('<<ListboxSelect>>', room_button_click)
 scrollbar = tk.Scrollbar(roomListFrame, orient=tk.VERTICAL, command=roomListBox.yview)
 scrollbar.grid(row=1, column=2, sticky=tk.N+tk.S)
+scrollbar.configure(command=roomListBox.yview)
 roomListBox.config(yscrollcommand=scrollbar.set)
 
 delete_room = tk.Button(roomListFrame, text="remove room", width=10, command=remove_room).grid(row=2, column=0, columnspan=2)
-moveRoomUp = tk.Button(roomListFrame, text="move up").grid(row=3, column=0)
-moveRoomDown = tk.Button(roomListFrame, text="move down").grid(row=3, column=1)
+# moveRoomUp = tk.Button(roomListFrame, text="move up").grid(row=3, column=0)
+# moveRoomDown = tk.Button(roomListFrame, text="move down").grid(row=3, column=1)
 
 # right side of room editor
 roomConfigCanvas.grid(row=0, column=1, rowspan=2, sticky=tk.N+tk.S+tk.E+tk.W)
@@ -762,6 +808,7 @@ roomConfigScrollBar.grid(row=0, column=5, rowspan=2, sticky=tk.N+tk.S)
 roomConfigScrollBar.configure(command=roomConfigCanvas.yview)
 roomConfigCanvas.config(yscrollcommand=roomConfigScrollBar.set, width=750, height=500)
 roomConfigCanvas.bind('<Configure>', canvas_scroll_config)
+# roomConfigCanvas.bind_all("<MouseWheel>", on_mousewheel)
 roomConfigCanvas.create_window(0, 0, anchor=tk.NW, window=frameRight)
 # endregion
 
@@ -1065,16 +1112,22 @@ vsrcScrollBar.grid(row=0, column=2, sticky=tk.N+tk.S)
 vsrcListBox.config(yscrollcommand=vsrcScrollBar.set)
 
 remove_vsrc_button = tk.Button(vsrcListFrame, text="remove video source", command=remove_vid_source_from_sys).grid(row=2, column=0, columnspan=2)
+
 # video source attributes
-vsrcNameLabel = tk.Label(vsrcAttributesFrame, text="Video Source Name:").grid(row=0, column=0, sticky=tk.E)
+vsrcNameLabel = tk.Label(vsrcAttributesFrame, text="Video source name (for reference only):").grid(row=0, column=0, sticky=tk.E)
 vsrcNameField = tk.StringVar()
 vsrcNameTextField = tk.Entry(vsrcAttributesFrame, textvariable=vsrcNameField)
 vsrcNameTextField.grid(row=0, column=1, sticky=tk.W)
 
-vidSwitchInputLabel = tk.Label(vsrcAttributesFrame, text="Video switcher input number:").grid(row=1, column=0, sticky=tk.E)
+vsrcDisplayNameLabel = tk.Label(vsrcAttributesFrame, text="Video source name to display on panels:").grid(row=1, column=0, sticky=tk.E)
+vsrcDisplayNameField = tk.StringVar()
+vsrcDisplayNameTextField = tk.Entry(vsrcAttributesFrame, textvariable=vsrcDisplayNameField)
+vsrcDisplayNameTextField.grid(row=1, column=1, sticky=tk.W)
+
+vidSwitchInputLabel = tk.Label(vsrcAttributesFrame, text="Video switcher input number:").grid(row=2, column=0, sticky=tk.E)
 vidSwitchInputField = tk.StringVar()
 vidSwitchInputTextField = tk.Entry(vsrcAttributesFrame, width=3, textvariable=vidSwitchInputField)
-vidSwitchInputTextField.grid(row=1, column=1, sticky=tk.W)
+vidSwitchInputTextField.grid(row=2, column=1, sticky=tk.W)
 
 audSwitchInputLabel = tk.Label(vsrcAttributesFrame, text="Audio switcher input number:").grid(row=3, column=0, sticky=tk.E)
 audSwitchInputField = tk.StringVar()
